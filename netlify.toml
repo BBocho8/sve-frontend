@@ -1,5 +1,5 @@
 [build]
-  command = "next build && next build && next config --no-lambdas && next export"
+  command = "next build"
   publish = "out"
 
 [[plugins]]
