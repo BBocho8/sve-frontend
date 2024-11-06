@@ -1,5 +1,5 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[build]
-  publish = "out"
+[[build]]
+  publish = ".next"
