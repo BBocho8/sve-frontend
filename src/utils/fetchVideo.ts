@@ -1,7 +1,9 @@
 import type { VideoApiResponse } from '@/types/Video';
 
 export async function fetchVideos(backendUrl: string) {
-	const response = await fetch(`${backendUrl}/videos`);
+	const response = await fetch(`${backendUrl}/videos`, {
+		cache: 'no-store',
+	});
 	if (!response.ok) throw new Error('Failed to fetch videos games');
 	const data: VideoApiResponse = await response.json();
 
