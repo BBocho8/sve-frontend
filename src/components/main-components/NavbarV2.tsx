@@ -1,5 +1,6 @@
 'use client';
 import type { Video } from '@/types/Video';
+import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
@@ -48,9 +49,28 @@ const NavbarV2 = ({
 		<nav ref={ref} className='relative bg-white shadow '>
 			<div className='container px-6 py-3 mx-auto md:flex'>
 				<div className='flex items-center justify-between'>
-					<Link href='/'>
-						<Image priority className='w-auto h-8 sm:h-9' src={logo} alt='logo' />
-					</Link>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							gap: 2,
+						}}
+					>
+						<Link href='/'>
+							<Image priority className='w-auto h-8 sm:h-9' src={logo} alt='logo' />
+						</Link>
+						<Typography
+							className='md:hidden'
+							sx={{
+								fontWeight: 600,
+								fontSize: '20px',
+								lineHeight: '26px',
+							}}
+						>
+							SVE REPLAY
+						</Typography>
+					</Box>
 
 					<div className='flex md:hidden'>
 						<button

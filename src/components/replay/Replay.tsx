@@ -31,6 +31,11 @@ const Replay = ({ data }: ReplayProps) => {
 		setCurrentPage(value);
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}, [currentPage]);
+
 	useEffect(() => {
 		const filteredGamesEffect = data.filter(game => {
 			if (isCompetition === 'all') return true;
