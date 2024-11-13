@@ -32,7 +32,7 @@ const GamesContainer = ({
 					)}
 					<div className='flex flex-col my-2 md:my-4'>
 						<div className='flex items-center justify-start px-4 gap-x-3'>
-							<Image src={logo} alt='logo SGE' className='rounded-full aspect-square w-9 h-9' width={36} height={36} />
+							<Image src={logo} alt='logo SGE' className=' aspect-square w-8 h-8' width={36} height={36} />
 							<div className='flex flex-col gap-y-0.5 mb-2'>
 								<p className='text-lg font-medium leading-6 tracking-tighter line-clamp-1 '>
 									{homeTeam} vs {awayTeam} - <span>{competition}</span>
