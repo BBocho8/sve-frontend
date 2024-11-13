@@ -1,23 +1,8 @@
 'use client';
 import { useState } from 'react';
-import removeAccents from 'remove-accents';
 
 import type { Video } from '@/types/Video';
-import Link from 'next/link';
 import GamesContainer from './GamesContainer';
-
-const getFilteredItems = (query: string, items: Video[]) => {
-	if (!query) {
-		return items;
-	}
-	if (query.length > 2) {
-		return items.filter(
-			game =>
-				removeAccents(game.homeTeam.toLowerCase()).includes(`${removeAccents(query.toLowerCase())}`) ||
-				removeAccents(game.awayTeam.toLowerCase()).includes(`${removeAccents(query.toLowerCase())}`),
-		);
-	}
-};
 
 type ReplayProps = {
 	data: Video[];
@@ -25,16 +10,12 @@ type ReplayProps = {
 
 const Replay = ({ data }: ReplayProps) => {
 	const [isCompetition, setIsCompetition] = useState('all');
-	const [query, setQuery] = useState('');
 
-	const filteredItems = getFilteredItems(query, data);
-
-	const competitions = ['Kreisfreundschaftsspiele', 'Bezirksliga', 'Rheinlandpokal'];
+	const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];
 
 	return (
 		<section>
-			<h1 className='text-center uppercase text-h2'>All Full Game Replays</h1>
-			<div className='flex flex-wrap items-center justify-center gap-2'>
+			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center gap-2 pb-2 px-2 md:px-0 md:pb-0'>
 				{competitions.map(competition => {
 					return (
 						<button
@@ -55,29 +36,8 @@ const Replay = ({ data }: ReplayProps) => {
 					ALL GAMES
 				</button>
 			</div>
-			<div className='flex flex-col items-center justify-center py-4 gap-y-2'>
-				<input
-					type='search'
-					name='search'
-					id='search'
-					onChange={e => setQuery(e.target.value)}
-					placeholder='Search for a game'
-					className='rounded-sm border-primaryGreen placeholder:text-black placeholder:opacity-70 focus:border-primaryGreen focus:ring-primaryGreen'
-				/>
 
-				<ul className='overflow-y-auto max-h-52'>
-					{query.length > 2 &&
-						filteredItems?.map(game => (
-							<Link key={game.id} href={`/replay/${game.id}`}>
-								<p className='px-4 py-2 text-black bg-white border hover:bg-gray-300 '>
-									{game.homeTeam} - {game.awayTeam}
-								</p>
-							</Link>
-						))}
-				</ul>
-			</div>
-
-			<div className='grid items-center justify-center grid-cols-1 px-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-2'>
+			<div className='grid items-center justify-center grid-cols-1 md:px-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-2'>
 				{isCompetition === 'all'
 					? data.map(game => {
 							const {

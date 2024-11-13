@@ -92,7 +92,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 					);
 				})}
 			</div>
-			{!isVideoAvailable && <p className='text-blue-800'>Game is not yet available</p>}
+			{!isVideoAvailable && <p className='text-blue-800'>Game video is not yet available</p>}
 			{gamePart && (
 				<iframe src={game[gamePart]} allowFullScreen className='w-4/5 h-auto my-2 aspect-video' title='video game' />
 			)}

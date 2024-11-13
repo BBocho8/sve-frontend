@@ -1,7 +1,8 @@
+import NavbarV2 from '@/components/main-components/NavbarV2';
+import { fetchVideos } from '@/utils/fetchVideo';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Footer from '../components/main-components/Footer';
-import Navbar from '../components/main-components/Navbar';
 import './globals.css';
 
 const geistSans = localFont({
@@ -19,15 +20,18 @@ export const metadata: Metadata = {
 	title: 'SVE Mendig - Match Replay',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const games = await fetchVideos('https://sge-db.sge-db.workers.dev');
+
 	return (
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<Navbar />
+				{/* <Navbar /> */}
+				<NavbarV2 data={games} />
 				{children}
 				<Footer />
 			</body>

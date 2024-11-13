@@ -17,30 +17,23 @@ const GamesContainer = ({
 	fullGame,
 }: Partial<Video>) => {
 	return (
-		<div key={id} className='py-4 mx-auto '>
-			<div className='max-w-md md:max-w-sm'>
+		<div key={id} className=' pt-2 pb-0 md:pt-4 md:pb-4 mx-auto  '>
+			<div className=' md:max-w-sm'>
 				<Link href={`/replay/${id}`}>
 					{isVideoAvailable ? (
 						<Image
 							src={getYoutubeID(firstHalf1) ? `${getYoutubeID(firstHalf1)}` : `${getYoutubeID(fullGame)}`}
 							alt={`${homeTeam} ${awayTeam} ${competition}`}
-							className='rounded-xl'
 							width={1080}
 							height={720}
 						/>
 					) : (
-						<Image
-							src={gameImg}
-							alt={`${homeTeam} ${awayTeam} ${competition}`}
-							className='rounded-xl'
-							width={1080}
-							height={720}
-						/>
+						<Image src={gameImg} alt={`${homeTeam} ${awayTeam} ${competition}`} width={1080} height={720} />
 					)}
-					<div className='flex flex-col my-4'>
+					<div className='flex flex-col my-2 md:my-4'>
 						<div className='flex items-center justify-start px-4 gap-x-3'>
 							<Image src={logo} alt='logo SGE' className='rounded-full aspect-square w-9 h-9' width={36} height={36} />
-							<div className='flex flex-col gap-y-1.5 mb-2'>
+							<div className='flex flex-col gap-y-0.5 mb-2'>
 								<p className='text-lg font-medium leading-6 tracking-tighter line-clamp-1 '>
 									{homeTeam} vs {awayTeam} - <span>{competition}</span>
 								</p>
@@ -49,7 +42,7 @@ const GamesContainer = ({
 								</p>
 							</div>
 						</div>
-						{isVideoAvailable ? (
+						{/* {isVideoAvailable ? (
 							<button className='btn' type='button'>
 								WATCH REPLAY
 							</button>
@@ -61,7 +54,7 @@ const GamesContainer = ({
 							>
 								Video is not available
 							</button>
-						)}
+						)} */}
 					</div>
 				</Link>
 			</div>
