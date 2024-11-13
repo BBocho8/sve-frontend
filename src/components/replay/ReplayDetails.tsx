@@ -57,14 +57,16 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 
 	return (
 		<div className='flex flex-col items-center mx-auto my-4'>
-			<p className='my-2 text-xl font-semibold'>
-				{homeTeam} <span className='text-xl font-bold'>-</span> {awayTeam}
-			</p>
-			<p>{competition}</p>
-			<p>
-				<span>{getFormattedDate(date)}</span> - <span>{getFormattedTime(date)}</span>
-			</p>
-			<div className='flex flex-wrap items-center justify-center my-2 gap-x-2 gap-y-2'>
+			<div className='text-center'>
+				<p className='my-2 text-xl font-semibold'>
+					{homeTeam} <span className='text-xl font-bold'>-</span> {awayTeam}
+				</p>
+				<p>{competition}</p>
+				<p>
+					<span>{getFormattedDate(date)}</span> - <span>{getFormattedTime(date)}</span>
+				</p>
+			</div>
+			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center my-2 gap-x-2 gap-y-2 w-full'>
 				{result.map(res => {
 					return (
 						<button
