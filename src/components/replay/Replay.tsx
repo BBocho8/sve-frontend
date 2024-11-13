@@ -15,7 +15,7 @@ const Replay = ({ data }: ReplayProps) => {
 
 	return (
 		<section>
-			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center gap-2 pt-1 pb-2 px-2 md:px-0 md:pb-0'>
+			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center gap-2 mt-4 pb-2 px-2 md:mt-0 md:px-0 md:pb-0'>
 				{competitions.map(competition => {
 					return (
 						<button
