@@ -66,7 +66,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 					<span>{getFormattedDate(date)}</span> - <span>{getFormattedTime(date)}</span>
 				</p>
 			</div>
-			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center my-2 gap-x-2 gap-y-2 w-full'>
+			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center px-2 md:px-0 my-2 gap-x-2 gap-y-2 w-full'>
 				{result.map(res => {
 					return (
 						<button
