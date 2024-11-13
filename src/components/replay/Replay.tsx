@@ -101,6 +101,7 @@ const Replay = ({ data }: ReplayProps) => {
 					sx={{
 						display: 'flex',
 						justifyContent: 'center',
+						my: 2,
 					}}
 					count={pages}
 					color='primary'
