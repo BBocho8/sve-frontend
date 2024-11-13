@@ -52,7 +52,7 @@ const NavbarV2 = ({
 						<Image priority className='w-auto h-8 sm:h-9' src={logo} alt='logo' />
 					</Link>
 
-					<div className='flex lg:hidden'>
+					<div className='flex md:hidden'>
 						<button
 							type='button'
 							className='text-black  hover:text-primaryGreen  focus:outline-none focus:text-primaryGreen  cursor-pointer transition ease-in-out'
