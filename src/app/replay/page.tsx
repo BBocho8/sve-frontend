@@ -1,8 +1,8 @@
 import Replay from '@/components/replay/Replay';
-import { fetchVideos } from '@/utils/fetchVideo';
+import getAllGames from '@/utils/contentful/createClient';
 
 const ReplayPage = async () => {
-	const games = await fetchVideos('https://sge-db.sge-db.workers.dev');
+	const games = await getAllGames();
 
 	return <Replay data={games} />;
 };

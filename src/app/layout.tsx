@@ -1,5 +1,5 @@
 import NavbarV2 from '@/components/main-components/NavbarV2';
-import { fetchVideos } from '@/utils/fetchVideo';
+import getAllGames from '@/utils/contentful/createClient';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Footer from '../components/main-components/Footer';
@@ -25,7 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const games = await fetchVideos('https://sge-db.sge-db.workers.dev');
+	const games = await getAllGames();
 
 	return (
 		<html lang='en'>

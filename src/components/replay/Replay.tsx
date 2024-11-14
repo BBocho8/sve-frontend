@@ -86,9 +86,10 @@ const Replay = ({ data }: ReplayProps) => {
 
 						fullGame,
 					} = game;
+
 					return (
 						<GamesContainer
-							key={game.id}
+							key={`${game.id}-ReplayComponent`}
 							id={id}
 							isVideoAvailable={isVideoAvailable}
 							competition={competition}
