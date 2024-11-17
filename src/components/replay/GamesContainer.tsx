@@ -26,6 +26,7 @@ const GamesContainer = ({
 							alt={`${homeTeam} ${awayTeam} ${competition}`}
 							width={1080}
 							height={720}
+							sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 						/>
 					) : (
 						<Image src={gameImg} alt={`${homeTeam} ${awayTeam} ${competition}`} width={1080} height={720} />
