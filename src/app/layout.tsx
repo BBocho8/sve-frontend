@@ -1,5 +1,7 @@
 import NavbarV2 from '@/components/main-components/NavbarV2';
+import { AuthProvider } from '@/utils/kinde/AuthProvider';
 import { SWRProvider } from '@/utils/swr/swr-provider';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Footer from '../components/main-components/Footer';
@@ -25,15 +27,20 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const { isAuthenticated } = getKindeServerSession();
+	const isUserAuthenticated = await isAuthenticated();
+
 	return (
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				{/* <Navbar /> */}
-				<SWRProvider>
-					<NavbarV2 domainUrl={process.env.DOMAIN_URL as string} />
-					{children}
-					<Footer />
-				</SWRProvider>
+				<AuthProvider>
+					<SWRProvider>
+						<NavbarV2 domainUrl={process.env.DOMAIN_URL as string} isAuthenticated={isUserAuthenticated} />
+						{children}
+						<Footer />
+					</SWRProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

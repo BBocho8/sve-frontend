@@ -1,6 +1,7 @@
 'use client';
 import type { Video } from '@/types/Video';
 import { fetchVideos } from '@/utils/fetchVideo';
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -14,8 +15,10 @@ import logo from '../../../public/logo.png';
 
 const NavbarV2 = ({
 	domainUrl,
+	isAuthenticated,
 }: {
 	domainUrl: string;
+	isAuthenticated: boolean;
 }) => {
 	const { data } = useSWR('fetchVideos', () => fetchVideos(domainUrl as string));
 
@@ -133,6 +136,11 @@ const NavbarV2 = ({
 						>
 							Replay
 						</Link>
+						{isAuthenticated && (
+							<Box className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'>
+								<LogoutLink>Log out</LogoutLink>
+							</Box>
+						)}
 					</div>
 					<div className='md:hidden'>
 						<div className='relative mt-2 md:mt-0'>
