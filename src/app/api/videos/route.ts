@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import type { Video } from '@/types/Video';
 import { createClient } from 'contentful';
 
