@@ -1,5 +1,5 @@
 import NavbarV2 from '@/components/main-components/NavbarV2';
-import getAllGames from '@/utils/contentful/createClient';
+import { fetchVideos } from '@/utils/fetchVideo';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Footer from '../components/main-components/Footer';
@@ -25,7 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const games = await getAllGames();
+	const games = await fetchVideos();
 
 	return (
 		<html lang='en'>

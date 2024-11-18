@@ -1,5 +1,5 @@
 export type VideoApiResponse = {
-	videoGames: Video[];
+	data: Video[];
 };
 
 export type Video = {

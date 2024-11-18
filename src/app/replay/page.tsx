@@ -1,8 +1,8 @@
 import Replay from '@/components/replay/Replay';
-import getAllGames from '@/utils/contentful/createClient';
+import { fetchVideos } from '@/utils/fetchVideo';
 
 const ReplayPage = async () => {
-	const games = await getAllGames();
+	const games = await fetchVideos();
 
 	return <Replay data={games} />;
 };
