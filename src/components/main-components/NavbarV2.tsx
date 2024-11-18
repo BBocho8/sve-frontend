@@ -137,9 +137,21 @@ const NavbarV2 = ({
 							Replay
 						</Link>
 						{isAuthenticated && (
-							<Box className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'>
-								<LogoutLink>Log out</LogoutLink>
-							</Box>
+							<>
+								<Link
+									onClick={() => setIsOpen(false)}
+									href='/admin'
+									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'
+								>
+									Admin
+								</Link>
+								<Box
+									onClick={() => setIsOpen(false)}
+									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'
+								>
+									<LogoutLink>Log out</LogoutLink>
+								</Box>
+							</>
 						)}
 					</div>
 					<div className='md:hidden'>
