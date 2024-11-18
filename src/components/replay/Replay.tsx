@@ -1,15 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import type { Video } from '@/types/Video';
 import { Pagination } from '@mui/material';
 import GamesContainer from './GamesContainer';
 
 type ReplayProps = {
-	data: Video[];
+	domainUrl: string;
 };
 
+import Loading from '@/app/loading';
+import { fetchVideos } from '@/utils/fetchVideo';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import useSWR from 'swr';
 
 const theme = createTheme({
 	palette: {
@@ -19,11 +21,13 @@ const theme = createTheme({
 	},
 });
 
-const Replay = ({ data }: ReplayProps) => {
+const Replay = ({ domainUrl }: ReplayProps) => {
+	const { data: games, isLoading, error } = useSWR('fetchVideos', () => fetchVideos(domainUrl));
+
 	const [isCompetition, setIsCompetition] = useState('all');
 	const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];
 	const rowPerPage = 10;
-	const [filteredGames, setFilteredGames] = useState(data.slice(0, rowPerPage));
+	const [filteredGames, setFilteredGames] = useState(games?.slice(0, rowPerPage) || []);
 	const [pages, setPages] = useState(Math.ceil(filteredGames.length / rowPerPage));
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,7 +41,9 @@ const Replay = ({ data }: ReplayProps) => {
 	}, [currentPage]);
 
 	useEffect(() => {
-		const filteredGamesEffect = data.filter(game => {
+		if (!games || error) return;
+
+		const filteredGamesEffect = games.filter(game => {
 			if (isCompetition === 'all') return true;
 			return game.competition === isCompetition;
 		});
@@ -45,7 +51,9 @@ const Replay = ({ data }: ReplayProps) => {
 		setFilteredGames(filteredGamesEffect);
 		setPages(Math.ceil(filteredGamesEffect.length / rowPerPage));
 		setCurrentPage(1);
-	}, [isCompetition, data]);
+	}, [isCompetition, games, error]);
+
+	if (isLoading) return <Loading />;
 
 	return (
 		<section>

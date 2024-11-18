@@ -1,5 +1,5 @@
 import NavbarV2 from '@/components/main-components/NavbarV2';
-import { fetchVideos } from '@/utils/fetchVideo';
+import { SWRProvider } from '@/utils/swr/swr-provider';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Footer from '../components/main-components/Footer';
@@ -25,15 +25,15 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const games = await fetchVideos();
-
 	return (
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				{/* <Navbar /> */}
-				<NavbarV2 data={games} />
-				{children}
-				<Footer />
+				<SWRProvider>
+					<NavbarV2 domainUrl={process.env.DOMAIN_URL as string} />
+					{children}
+					<Footer />
+				</SWRProvider>
 			</body>
 		</html>
 	);

@@ -1,5 +1,6 @@
 'use client';
 import type { Video } from '@/types/Video';
+import { fetchVideos } from '@/utils/fetchVideo';
 import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
@@ -7,14 +8,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import removeAccents from 'remove-accents';
+import useSWR from 'swr';
 import { useOnClickOutside } from 'usehooks-ts';
 import logo from '../../../public/logo.png';
 
 const NavbarV2 = ({
-	data,
+	domainUrl,
 }: {
-	data: Video[];
+	domainUrl: string;
 }) => {
+	const { data } = useSWR('fetchVideos', () => fetchVideos(domainUrl as string));
+
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef(null);
 	const [query, setQuery] = useState('');
@@ -31,7 +35,7 @@ const NavbarV2 = ({
 		}
 	};
 
-	const filteredItems = getFilteredItems(query, data);
+	const filteredItems = getFilteredItems(query, data || []);
 
 	const handleClickOutside = () => {
 		setIsOpen(false);
