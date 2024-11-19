@@ -5,7 +5,6 @@ const DetailedReplayPage = async () => {
 		<DetailedReplayComponent
 			projectId={process.env.SANITY_PROJECT_ID as string}
 			dataset={process.env.SANITY_DATASET as string}
-			apiVersion={process.env.SANITY_API_VERSION as string}
 		/>
 	);
 };

@@ -16,16 +16,14 @@ import logo from '../../../public/logo.png';
 const NavbarV2 = ({
 	projectId,
 	dataset,
-	apiVersion,
 
 	isAuthenticated,
 }: {
 	projectId: string;
 	dataset: string;
-	apiVersion: string;
 	isAuthenticated: boolean;
 }) => {
-	const { data } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset, apiVersion));
+	const { data } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef(null);
 	const [query, setQuery] = useState('');

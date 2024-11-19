@@ -37,7 +37,6 @@ export default async function RootLayout({
 					<NavbarV2
 						projectId={process.env.SANITY_PROJECT_ID as string}
 						dataset={process.env.SANITY_DATASET as string}
-						apiVersion={process.env.SANITY_API_VERSION as string}
 						isAuthenticated={isUserAuthenticated}
 					/>
 					{children}

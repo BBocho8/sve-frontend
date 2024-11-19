@@ -7,7 +7,6 @@ import GamesContainer from './GamesContainer';
 type ReplayProps = {
 	projectId: string;
 	dataset: string;
-	apiVersion: string;
 };
 
 import Loading from '@/app/loading';
@@ -23,14 +22,8 @@ const theme = createTheme({
 	},
 });
 
-const Replay = ({ projectId, dataset, apiVersion }: ReplayProps) => {
-	// const { data: games, isLoading, error } = useSWR('fetchVideos', () => fetchVideos(domainUrl));
-
-	const {
-		data: games,
-		isLoading,
-		error,
-	} = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset, apiVersion));
+const Replay = ({ projectId, dataset }: ReplayProps) => {
+	const { data: games, isLoading, error } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
 
 	const [isCompetition, setIsCompetition] = useState('all');
 	const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];

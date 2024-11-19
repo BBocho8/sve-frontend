@@ -10,17 +10,11 @@ import useSWR from 'swr';
 const DetailedReplayComponent = ({
 	projectId,
 	dataset,
-	apiVersion,
 }: {
 	projectId: string;
 	dataset: string;
-	apiVersion: string;
 }) => {
-	const {
-		data: games,
-		isLoading,
-		error,
-	} = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset, apiVersion));
+	const { data: games, isLoading, error } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
 
 	const { gameID } = useParams();
 
