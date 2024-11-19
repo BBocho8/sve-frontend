@@ -27,9 +27,10 @@ const GamesContainer = ({
 							width={1080}
 							height={720}
 							sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+							priority
 						/>
 					) : (
-						<Image src={gameImg} alt={`${homeTeam} ${awayTeam} ${competition}`} width={1080} height={720} />
+						<Image src={gameImg} alt={`${homeTeam} ${awayTeam} ${competition}`} width={1080} height={720} priority />
 					)}
 					<div className='flex flex-col my-2 md:my-4'>
 						<div className='flex items-center justify-start px-4 gap-x-3'>

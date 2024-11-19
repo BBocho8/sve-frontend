@@ -1,5 +1,4 @@
 import NavbarV2 from '@/components/main-components/NavbarV2';
-import { AuthProvider } from '@/utils/kinde/AuthProvider';
 import { SWRProvider } from '@/utils/swr/swr-provider';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import type { Metadata } from 'next';
@@ -34,18 +33,16 @@ export default async function RootLayout({
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				{/* <Navbar /> */}
-				<AuthProvider>
-					<SWRProvider>
-						<NavbarV2
-							projectId={process.env.SANITY_PROJECT_ID as string}
-							dataset={process.env.SANITY_DATASET as string}
-							apiVersion={process.env.SANITY_API_VERSION as string}
-							isAuthenticated={isUserAuthenticated}
-						/>
-						{children}
-						<Footer />
-					</SWRProvider>
-				</AuthProvider>
+				<SWRProvider>
+					<NavbarV2
+						projectId={process.env.SANITY_PROJECT_ID as string}
+						dataset={process.env.SANITY_DATASET as string}
+						apiVersion={process.env.SANITY_API_VERSION as string}
+						isAuthenticated={isUserAuthenticated}
+					/>
+					{children}
+					<Footer />
+				</SWRProvider>
 			</body>
 		</html>
 	);
