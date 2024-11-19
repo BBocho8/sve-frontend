@@ -1,9 +1,9 @@
-import type { Video } from '@/types/Video';
+import type { VideoV2 } from '@/types/Video';
 import { getFormattedDate, getFormattedTime } from '@/utils/formatDate';
 import { useState } from 'react';
 
 type ReplayDetailsProps = {
-	game: Video;
+	game: VideoV2;
 };
 const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	const [gamePart, setGamePart] = useState<
@@ -42,7 +42,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	const gameLinksArray = Object.keys(gameLinks);
 
 	const result = gameLinksArray.filter(link => {
-		if (game[link as keyof Video]) {
+		if (game[link as keyof VideoV2]) {
 			return link;
 		}
 	});

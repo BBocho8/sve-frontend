@@ -2,23 +2,31 @@
 
 import Loading from '@/app/loading';
 import ReplayDetails from '@/components/replay/ReplayDetails';
-import type { Video } from '@/types/Video';
-import { fetchVideos } from '@/utils/fetchVideo';
+import type { VideoV2 } from '@/types/Video';
+import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
 
 const DetailedReplayComponent = ({
-	domainUrl,
+	projectId,
+	dataset,
+	apiVersion,
 }: {
-	domainUrl: string;
+	projectId: string;
+	dataset: string;
+	apiVersion: string;
 }) => {
-	const { data: games, isLoading, error } = useSWR('fetchVideos', () => fetchVideos(domainUrl));
+	const {
+		data: games,
+		isLoading,
+		error,
+	} = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset, apiVersion));
 
 	const { gameID } = useParams();
 
-	const targetGame = games?.find(game => game.id === gameID);
+	const targetGame = games?.find(game => game._id === gameID);
 
-	return !isLoading && !error ? <ReplayDetails game={targetGame as Video} /> : <Loading />;
+	return !isLoading && !error ? <ReplayDetails game={targetGame as VideoV2} /> : <Loading />;
 };
 
 export default DetailedReplayComponent;

@@ -1,9 +1,15 @@
-import type { VideoApiResponse } from '@/types/Video';
+import type { VideoV2 } from '@/types/Video';
+import { createClient } from 'next-sanity';
 
-export async function fetchVideos(domainUrl?: string) {
-	const response = await fetch(`${process.env.DOMAIN_URL || domainUrl}/api/videos`, { cache: 'no-cache' });
-	if (!response.ok) throw new Error('Failed to fetch videos games');
-	const data: VideoApiResponse = await response.json();
+export async function fetchVideosV2(projectId: string, dataset: string, apiVersion: string) {
+	const client = createClient({
+		projectId: projectId,
+		dataset: dataset,
+		apiVersion: apiVersion,
+		useCdn: false,
+	});
 
-	return data.data;
+	const data: VideoV2[] = await client.fetch(`*[_type == "matchVideo"] | order(date desc)`);
+
+	return data;
 }

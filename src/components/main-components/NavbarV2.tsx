@@ -1,6 +1,6 @@
 'use client';
-import type { Video } from '@/types/Video';
-import { fetchVideos } from '@/utils/fetchVideo';
+import type { VideoV2 } from '@/types/Video';
+import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
@@ -14,18 +14,22 @@ import { useOnClickOutside } from 'usehooks-ts';
 import logo from '../../../public/logo.png';
 
 const NavbarV2 = ({
-	domainUrl,
+	projectId,
+	dataset,
+	apiVersion,
+
 	isAuthenticated,
 }: {
-	domainUrl: string;
+	projectId: string;
+	dataset: string;
+	apiVersion: string;
 	isAuthenticated: boolean;
 }) => {
-	const { data } = useSWR('fetchVideos', () => fetchVideos(domainUrl as string));
-
+	const { data } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset, apiVersion));
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef(null);
 	const [query, setQuery] = useState('');
-	const getFilteredItems = (query: string, items: Video[]) => {
+	const getFilteredItems = (query: string, items: VideoV2[]) => {
 		if (!query) {
 			return items;
 		}
@@ -185,8 +189,8 @@ const NavbarV2 = ({
 											setQuery('');
 											setIsOpen(false);
 										}}
-										key={game.id}
-										href={`/replay/${game.id}`}
+										key={game._id}
+										href={`/replay/${game._id}`}
 									>
 										<p className='px-4 py-2 text-black bg-white border hover:bg-gray-300 text-center'>
 											{game.homeTeam} vs {game.awayTeam} - {dayjs(game?.date).format('MMM D, YYYY')}

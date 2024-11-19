@@ -36,7 +36,12 @@ export default async function RootLayout({
 				{/* <Navbar /> */}
 				<AuthProvider>
 					<SWRProvider>
-						<NavbarV2 domainUrl={process.env.DOMAIN_URL as string} isAuthenticated={isUserAuthenticated} />
+						<NavbarV2
+							projectId={process.env.SANITY_PROJECT_ID as string}
+							dataset={process.env.SANITY_DATASET as string}
+							apiVersion={process.env.SANITY_API_VERSION as string}
+							isAuthenticated={isUserAuthenticated}
+						/>
 						{children}
 						<Footer />
 					</SWRProvider>

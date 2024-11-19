@@ -1,4 +1,4 @@
-import type { Video } from '@/types/Video';
+import type { VideoV2 } from '@/types/Video';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../../../public/logo.png';
@@ -7,7 +7,7 @@ import { getFormattedDate, getFormattedTime } from '../../utils/formatDate';
 import getYoutubeID from '../../utils/getYoutubeID';
 
 const GamesContainer = ({
-	id,
+	_id: id,
 	isVideoAvailable,
 	competition,
 	homeTeam,
@@ -15,7 +15,7 @@ const GamesContainer = ({
 	date,
 	firstHalf1,
 	fullGame,
-}: Partial<Video>) => {
+}: Partial<VideoV2>) => {
 	return (
 		<div key={id} className=' pt-2 pb-0 md:pt-4 md:pb-4 mx-auto  '>
 			<div className=' md:max-w-sm'>

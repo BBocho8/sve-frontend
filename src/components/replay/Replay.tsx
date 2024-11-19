@@ -5,11 +5,13 @@ import { Pagination } from '@mui/material';
 import GamesContainer from './GamesContainer';
 
 type ReplayProps = {
-	domainUrl: string;
+	projectId: string;
+	dataset: string;
+	apiVersion: string;
 };
 
 import Loading from '@/app/loading';
-import { fetchVideos } from '@/utils/fetchVideo';
+import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import useSWR from 'swr';
 
@@ -21,8 +23,14 @@ const theme = createTheme({
 	},
 });
 
-const Replay = ({ domainUrl }: ReplayProps) => {
-	const { data: games, isLoading, error } = useSWR('fetchVideos', () => fetchVideos(domainUrl));
+const Replay = ({ projectId, dataset, apiVersion }: ReplayProps) => {
+	// const { data: games, isLoading, error } = useSWR('fetchVideos', () => fetchVideos(domainUrl));
+
+	const {
+		data: games,
+		isLoading,
+		error,
+	} = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset, apiVersion));
 
 	const [isCompetition, setIsCompetition] = useState('all');
 	const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];
@@ -82,7 +90,7 @@ const Replay = ({ domainUrl }: ReplayProps) => {
 			<div className='grid items-center justify-center grid-cols-1 md:px-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-2'>
 				{filteredGames.slice((currentPage - 1) * rowPerPage, currentPage * rowPerPage).map(game => {
 					const {
-						id,
+						_id: id,
 						isVideoAvailable,
 
 						competition,
@@ -97,8 +105,8 @@ const Replay = ({ domainUrl }: ReplayProps) => {
 
 					return (
 						<GamesContainer
-							key={`${game.id}-ReplayComponent`}
-							id={id}
+							key={`${game._id}-ReplayComponent`}
+							_id={id}
 							isVideoAvailable={isVideoAvailable}
 							competition={competition}
 							homeTeam={homeTeam}
