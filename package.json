@@ -22,6 +22,7 @@
 		"contentful": "^11.2.1",
 		"dayjs": "^1.11.13",
 		"immer": "^10.1.1",
+		"jsonwebtoken": "^9.0.2",
 		"next": "14.2.14",
 		"next-auth": "^4.24.10",
 		"next-sanity": "^9.8.16",
@@ -35,6 +36,7 @@
 		"zustand": "^5.0.1"
 	},
 	"devDependencies": {
+		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
