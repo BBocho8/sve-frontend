@@ -2,10 +2,10 @@
 import { type TProjectSetup, useProjectSetup } from '@/stores/sanity-store';
 import type { VideoV2 } from '@/types/Video';
 import { fetchVideosV2 } from '@/utils/fetchVideo';
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -18,13 +18,13 @@ const NavbarV2 = ({
 	projectId,
 	dataset,
 	token,
-	isAuthenticated,
 }: {
 	projectId: string;
 	dataset: string;
-	isAuthenticated: boolean;
 	token: string;
 }) => {
+	const { data: session } = useSession();
+
 	const { creds, setProjectSetup } = useProjectSetup();
 
 	const { data } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
@@ -65,10 +65,9 @@ const NavbarV2 = ({
 			...(creds as TProjectSetup | undefined),
 			projectId,
 			dataset,
-			isAuthenticated,
 			token,
 		});
-	}, [projectId, dataset, isAuthenticated, token, setProjectSetup, creds]);
+	}, [projectId, dataset, token, setProjectSetup, creds]);
 	return (
 		<nav ref={ref} className='relative bg-white shadow '>
 			<div className='container px-6 py-3 mx-auto md:flex'>
@@ -153,7 +152,7 @@ const NavbarV2 = ({
 						>
 							Replay
 						</Link>
-						{isAuthenticated && (
+						{!!session && (
 							<>
 								<Link
 									onClick={() => setIsOpen(false)}
@@ -162,12 +161,16 @@ const NavbarV2 = ({
 								>
 									Admin
 								</Link>
-								<Box
-									onClick={() => setIsOpen(false)}
-									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'
+
+								<Typography
+									onClick={() => {
+										setIsOpen(false);
+										signOut();
+									}}
+									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2 cursor-pointer'
 								>
-									<LogoutLink>Log out</LogoutLink>
-								</Box>
+									Sign out
+								</Typography>
 							</>
 						)}
 					</div>

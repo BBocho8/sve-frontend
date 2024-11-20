@@ -5,8 +5,6 @@ export type TProjectSetup = {
 	projectId: string;
 	dataset: string;
 	token: string;
-	isAuthenticated: boolean;
-	test?: string;
 };
 
 interface ProjectSetup {
