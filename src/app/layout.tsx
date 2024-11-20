@@ -1,5 +1,6 @@
 import NavbarV2 from '@/components/main-components/NavbarV2';
 import SessionProvider from '@/components/providers/SessionProvider';
+import authOptions from '@/utils/auth';
 import { SWRProvider } from '@/utils/swr/swr-provider';
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
@@ -27,7 +28,7 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const session = await getServerSession();
+	const session = await getServerSession(authOptions);
 
 	return (
 		<html lang='en'>

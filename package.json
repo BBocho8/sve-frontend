@@ -10,12 +10,14 @@
 		"biome:check": "biome check ./src"
 	},
 	"dependencies": {
+		"@auth/supabase-adapter": "^1.7.4",
 		"@biomejs/biome": "^1.9.4",
 		"@emotion/react": "^11.13.3",
 		"@emotion/styled": "^11.13.0",
 		"@mui/material": "^6.1.6",
 		"@netlify/plugin-nextjs": "^5.8.1",
 		"@ramda/mergedeepleft": "^0.26.1",
+		"@supabase/supabase-js": "^2.46.1",
 		"classnames": "^2.5.1",
 		"contentful": "^11.2.1",
 		"dayjs": "^1.11.13",
