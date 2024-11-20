@@ -5,6 +5,8 @@ export type TProjectSetup = {
 	projectId: string;
 	dataset: string;
 	token: string;
+	supabaseUrl: string;
+	supabaseServiceRoleKey: string;
 };
 
 interface ProjectSetup {

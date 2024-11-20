@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SupabaseAdapter } from '@auth/supabase-adapter';
 import jwt from 'jsonwebtoken';
 import GitHubProvider from 'next-auth/providers/github';
@@ -20,7 +21,13 @@ const authOptions = {
 	}),
 	secret: process.env.NEXTAUTH_SECRET as string,
 	callbacks: {
-		async session({ session, user }) {
+		async session({
+			session,
+			user,
+		}: {
+			session: any;
+			user: any;
+		}) {
 			const signingSecret = process.env.SUPABASE_JWT_SECRET;
 			if (signingSecret) {
 				const payload = {

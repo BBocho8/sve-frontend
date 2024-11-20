@@ -18,10 +18,14 @@ const NavbarV2 = ({
 	projectId,
 	dataset,
 	token,
+	supabaseUrl,
+	supabaseServiceRoleKey,
 }: {
 	projectId: string;
 	dataset: string;
 	token: string;
+	supabaseUrl: string;
+	supabaseServiceRoleKey: string;
 }) => {
 	const { data: session } = useSession();
 
@@ -58,16 +62,18 @@ const NavbarV2 = ({
 		'translate-x-0 opacity-100': isOpen,
 	});
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (creds) return;
-
 		setProjectSetup({
 			...(creds as TProjectSetup | undefined),
 			projectId,
 			dataset,
 			token,
+			supabaseUrl,
+			supabaseServiceRoleKey,
 		});
-	}, [projectId, dataset, token, setProjectSetup, creds]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	return (
 		<nav ref={ref} className='relative bg-white shadow '>
 			<div className='container px-6 py-3 mx-auto md:flex'>

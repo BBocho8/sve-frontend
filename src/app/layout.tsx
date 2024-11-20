@@ -40,6 +40,8 @@ export default async function RootLayout({
 								projectId={process.env.SANITY_PROJECT_ID as string}
 								dataset={process.env.SANITY_DATASET as string}
 								token={process.env.SANITY_API_TOKEN as string}
+								supabaseUrl={process.env.SUPABASE_URL as string}
+								supabaseServiceRoleKey={process.env.SUPABASE_SERVICE_ROLE_KEY as string}
 							/>
 							{children}
 							<Footer />
