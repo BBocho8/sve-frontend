@@ -1,5 +1,5 @@
 'use client';
-import { useProjectSetup } from '@/stores/sanity-store';
+import { type TProjectSetup, useProjectSetup } from '@/stores/sanity-store';
 import type { VideoV2 } from '@/types/Video';
 import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
@@ -62,6 +62,7 @@ const NavbarV2 = ({
 		if (creds) return;
 
 		setProjectSetup({
+			...(creds as TProjectSetup | undefined),
 			projectId,
 			dataset,
 			isAuthenticated,

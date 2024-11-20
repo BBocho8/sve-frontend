@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type TProjectSetup = {
+export type TProjectSetup = {
 	projectId: string;
 	dataset: string;
 	token: string;
 	isAuthenticated: boolean;
+	test?: string;
 };
 
 interface ProjectSetup {
@@ -14,11 +15,13 @@ interface ProjectSetup {
 	setProjectSetup: (projectSetup: TProjectSetup) => void;
 }
 
+const storage = typeof window !== 'undefined' ? localStorage.getItem('sanity-store') : undefined;
+const initialCreds = storage ? JSON.parse(storage as string) : undefined;
+
 export const useProjectSetup = create<ProjectSetup>()(
 	persist(
 		set => ({
-			creds: undefined,
-
+			creds: initialCreds,
 			setProjectSetup: (projectSetup: TProjectSetup) => set({ creds: projectSetup }),
 		}),
 

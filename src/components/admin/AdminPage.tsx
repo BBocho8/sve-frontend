@@ -1,12 +1,12 @@
 'use client';
 
-import { useProjectSetup } from '@/stores/sanity-store';
+import { type TProjectSetup, useProjectSetup } from '@/stores/sanity-store';
 import { testPayload, testUpdatePayload } from '@/types/Video';
 import { createVideo, deleteVideo, updateVideo } from '@/utils/fetchVideo';
 import { Box, Button, Typography } from '@mui/material';
 
 const AdminPageComponent = () => {
-	const { creds } = useProjectSetup();
+	const { creds, setProjectSetup } = useProjectSetup();
 
 	return (
 		<Box
@@ -71,6 +71,20 @@ const AdminPageComponent = () => {
 			>
 				Test Delete Entry
 			</Button>
+
+			<button
+				type='button'
+				onClick={() =>
+					setProjectSetup({
+						...(creds as TProjectSetup),
+						test: 'testdsdfsdfsseee',
+					})
+				}
+			>
+				Onclickme
+			</button>
+
+			<p>{creds?.test}</p>
 		</Box>
 	);
 };
