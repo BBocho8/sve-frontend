@@ -4,12 +4,8 @@ import { useEffect, useState } from 'react';
 import { Pagination } from '@mui/material';
 import GamesContainer from './GamesContainer';
 
-type ReplayProps = {
-	projectId: string;
-	dataset: string;
-};
-
 import Loading from '@/app/loading';
+import { useProjectSetup } from '@/stores/sanity-store';
 import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import useSWR from 'swr';
@@ -22,8 +18,13 @@ const theme = createTheme({
 	},
 });
 
-const Replay = ({ projectId, dataset }: ReplayProps) => {
-	const { data: games, isLoading, error } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
+const Replay = () => {
+	const { creds } = useProjectSetup();
+	const {
+		data: games,
+		isLoading,
+		error,
+	} = useSWR('fetchVideosV2', () => fetchVideosV2(creds?.projectId as string, creds?.dataset as string));
 
 	const [isCompetition, setIsCompetition] = useState('all');
 	const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];

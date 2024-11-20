@@ -8,11 +8,7 @@ const AdminPage = async () => {
 	const isUserAuthenticated = await isAuthenticated();
 
 	return isUserAuthenticated ? (
-		<AdminPageComponent
-			projectId={process.env.SANITY_PROJECT_ID as string}
-			dataset={process.env.SANITY_DATASET as string}
-			token={process.env.SANITY_API_TOKEN as string}
-		/>
+		<AdminPageComponent />
 	) : (
 		<Box
 			sx={{

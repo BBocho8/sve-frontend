@@ -32,12 +32,12 @@ export default async function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				{/* <Navbar /> */}
 				<SWRProvider>
 					<NavbarV2
 						projectId={process.env.SANITY_PROJECT_ID as string}
 						dataset={process.env.SANITY_DATASET as string}
 						isAuthenticated={isUserAuthenticated}
+						token={process.env.SANITY_API_TOKEN as string}
 					/>
 					{children}
 					<Footer />

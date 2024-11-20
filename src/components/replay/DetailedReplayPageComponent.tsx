@@ -2,18 +2,17 @@
 
 import Loading from '@/app/loading';
 import ReplayDetails from '@/components/replay/ReplayDetails';
+import { useProjectSetup } from '@/stores/sanity-store';
 import type { VideoV2 } from '@/types/Video';
 import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
 
-const DetailedReplayComponent = ({
-	projectId,
-	dataset,
-}: {
-	projectId: string;
-	dataset: string;
-}) => {
+const DetailedReplayComponent = () => {
+	const { creds } = useProjectSetup();
+
+	const { projectId, dataset } = creds as { projectId: string; dataset: string };
+
 	const { data: games, isLoading, error } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
 
 	const { gameID } = useParams();

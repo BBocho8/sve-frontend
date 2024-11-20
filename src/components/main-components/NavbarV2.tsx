@@ -1,4 +1,5 @@
 'use client';
+import { useProjectSetup } from '@/stores/sanity-store';
 import type { VideoV2 } from '@/types/Video';
 import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
@@ -7,7 +8,7 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import removeAccents from 'remove-accents';
 import useSWR from 'swr';
 import { useOnClickOutside } from 'usehooks-ts';
@@ -16,13 +17,16 @@ import logo from '../../../public/logo.png';
 const NavbarV2 = ({
 	projectId,
 	dataset,
-
+	token,
 	isAuthenticated,
 }: {
 	projectId: string;
 	dataset: string;
 	isAuthenticated: boolean;
+	token: string;
 }) => {
+	const { creds, setProjectSetup } = useProjectSetup();
+
 	const { data } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef(null);
@@ -54,6 +58,16 @@ const NavbarV2 = ({
 		'translate-x-0 opacity-100': isOpen,
 	});
 
+	useEffect(() => {
+		if (creds) return;
+
+		setProjectSetup({
+			projectId,
+			dataset,
+			isAuthenticated,
+			token,
+		});
+	}, [projectId, dataset, isAuthenticated, token, setProjectSetup, creds]);
 	return (
 		<nav ref={ref} className='relative bg-white shadow '>
 			<div className='container px-6 py-3 mx-auto md:flex'>
