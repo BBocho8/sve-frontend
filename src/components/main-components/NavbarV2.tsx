@@ -171,7 +171,10 @@ const NavbarV2 = ({
 								<Typography
 									onClick={() => {
 										setIsOpen(false);
-										signOut();
+										signOut({
+											callbackUrl: '/',
+											redirect: true,
+										});
 									}}
 									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2 cursor-pointer'
 								>

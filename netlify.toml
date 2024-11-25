@@ -3,3 +3,9 @@
 
 [build]
   publish = ".next"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin"
+  status = 301
+  force = true
