@@ -36,7 +36,10 @@ const GamesContainer = ({
 						<div className='flex items-center justify-start px-4 gap-x-3'>
 							<Image src={logo} alt='logo SGE' className=' aspect-square w-8 h-8' width={36} height={36} />
 							<div className='flex flex-col gap-y-0.5 mb-2'>
-								<p className='text-lg font-medium leading-6 tracking-tighter line-clamp-1 '>
+								<p
+									className='text-lg font-medium leading-6 tracking-tighter line-clamp-1'
+									title={`${homeTeam} vs ${awayTeam} - ${competition}`}
+								>
 									{homeTeam} vs {awayTeam} - <span>{competition}</span>
 								</p>
 								<p className='font-light text-md'>
