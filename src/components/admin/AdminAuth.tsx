@@ -4,10 +4,31 @@ import { testPayload, testUpdatePayload } from '@/types/Video';
 import { createVideo, deleteVideo, updateVideo } from '@/utils/fetchVideo';
 import { Box, Button, Typography } from '@mui/material';
 import { useSession } from 'next-auth/react';
+import Downloader from '../Downloader';
 
 const AdminAuth = () => {
 	const { creds } = useProjectSetup();
 	const { data: session } = useSession();
+
+	const getEmbedUrl = (url: string) => {
+		const splited = url.split('v=');
+		const splitedAgain = splited[1].split('&');
+		const videoId = splitedAgain[0];
+
+		return `https://www.youtube.com/embed/${videoId}`;
+	};
+
+	// useEffect(() => {
+	// 	fetch('/api/youtube').then(async res => {
+	// 		const data = await res.json();
+	// 		setTest(data);
+
+	// 		// const blob = new Blob([data], { type: 'video/mp4' });
+	// 		// const url = URL.createObjectURL(blob);
+
+	// 		// setUrlString(url);
+	// 	});
+	// }, []);
 
 	return (
 		<Box
@@ -45,7 +66,6 @@ const AdminAuth = () => {
 			>
 				Test Add Entry
 			</Button>
-
 			<Button
 				onClick={() =>
 					updateVideo(
@@ -59,7 +79,6 @@ const AdminAuth = () => {
 			>
 				Test Update Entry
 			</Button>
-
 			<Button
 				onClick={() =>
 					deleteVideo(
@@ -73,6 +92,38 @@ const AdminAuth = () => {
 				Test Delete Entry
 			</Button>
 			<p>{session?.user?.name}</p>
+			<iframe
+				title='video'
+				src={getEmbedUrl('https://www.youtube.com/watch?v=F6sThOJiUNY')}
+				allowFullScreen
+				width={720}
+				height={380}
+			/>
+
+			{/* <button
+				type='button'
+				onClick={() =>
+					fetch('/api/youtube').then(async res => {
+						const data = await res.json();
+
+						console.log(data);
+						return data;
+					})
+				}
+			>
+				YTB
+			</button>
+			{!!urlString && (
+				<a
+					// target='_blank' rel='noreferrer'
+					download
+					href={'/video/video.mp4'}
+				>
+					Download video
+				</a>
+			)} */}
+
+			<Downloader />
 		</Box>
 	);
 };
