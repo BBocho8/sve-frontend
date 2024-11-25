@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 		// 		'Content-Type': 'video/mp4',
 		// 	},
 		// });
-		return 'hello';
+		return new Response(JSON.stringify({ success: true }), { status: 200 });
 	} catch (error) {
 		console.error('Error during video download:', error);
 		return new Response(JSON.stringify({ error: 'Failed to download video.' }), { status: 500 });
