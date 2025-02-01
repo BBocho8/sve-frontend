@@ -1,22 +1,20 @@
 'use client';
-import { useEffect, useState } from 'react';
 
-import { Pagination } from '@mui/material';
-import GamesContainer from './GamesContainer';
+import { Pagination, ThemeProvider, createTheme } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
+import useSWR from 'swr';
 
 import Loading from '@/app/loading';
 import { useProjectSetup } from '@/stores/sanity-store';
 import { fetchVideosV2 } from '@/utils/fetchVideo';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import useSWR from 'swr';
+import GamesContainer from './GamesContainer';
 
 const theme = createTheme({
-	palette: {
-		primary: {
-			main: '#15A34A',
-		},
-	},
+	palette: { primary: { main: '#15A34A' } },
 });
+
+const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];
+const ROWS_PER_PAGE = 10;
 
 const Replay = () => {
 	const { creds } = useProjectSetup();
@@ -26,55 +24,49 @@ const Replay = () => {
 		error,
 	} = useSWR('fetchVideosV2', () => fetchVideosV2(creds?.projectId as string, creds?.dataset as string));
 
-	const [isCompetition, setIsCompetition] = useState('all');
-	const competitions = ['Bezirksliga', 'Kreisfreundschaftsspiele', 'Rheinlandpokal'];
-	const rowPerPage = 10;
-	const [filteredGames, setFilteredGames] = useState(games?.slice(0, rowPerPage) || []);
-	const [pages, setPages] = useState(Math.ceil(filteredGames.length / rowPerPage));
+	const [selectedCompetition, setSelectedCompetition] = useState('all');
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const handlePageChange = (value: number) => {
-		setCurrentPage(value);
-	};
+	const filteredGames = useMemo(() => {
+		if (!games) return [];
+		return selectedCompetition === 'all' ? games : games.filter(game => game.competition === selectedCompetition);
+	}, [games, selectedCompetition]);
+
+	const totalPages = Math.ceil(filteredGames.length / ROWS_PER_PAGE);
+	const paginatedGames = useMemo(
+		() => filteredGames.slice((currentPage - 1) * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE),
+		[filteredGames, currentPage],
+	);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}, [currentPage]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (!games || error) return;
-
-		const filteredGamesEffect = games.filter(game => {
-			if (isCompetition === 'all') return true;
-			return game.competition === isCompetition;
-		});
-
-		setFilteredGames(filteredGamesEffect);
-		setPages(Math.ceil(filteredGamesEffect.length / rowPerPage));
 		setCurrentPage(1);
-	}, [isCompetition, games, error]);
+	}, [selectedCompetition]);
 
 	if (isLoading) return <Loading />;
+	if (error) return <p>Error loading games...</p>;
 
 	return (
 		<section>
 			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center gap-2 mt-4 pb-2 px-2 md:mt-0 md:px-0 md:pb-0'>
-				{competitions.map(competition => {
-					return (
-						<button
-							onClick={() => setIsCompetition(competition)}
-							className={isCompetition === competition ? 'btn bg-black' : 'btn'}
-							key={competition}
-							type='button'
-						>
-							{competition}
-						</button>
-					);
-				})}
+				{competitions.map(comp => (
+					<button
+						key={comp}
+						onClick={() => setSelectedCompetition(comp)}
+						className={`btn ${selectedCompetition === comp ? 'bg-black' : ''}`}
+						type='button'
+					>
+						{comp}
+					</button>
+				))}
 				<button
-					className={isCompetition === 'all' ? 'btn bg-black' : 'btn'}
-					onClick={() => setIsCompetition('all')}
+					className={`btn ${selectedCompetition === 'all' ? 'bg-black' : ''}`}
+					onClick={() => setSelectedCompetition('all')}
 					type='button'
 				>
 					ALL GAMES
@@ -82,47 +74,18 @@ const Replay = () => {
 			</div>
 
 			<div className='grid items-center justify-center grid-cols-1 md:px-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-2'>
-				{filteredGames.slice((currentPage - 1) * rowPerPage, currentPage * rowPerPage).map(game => {
-					const {
-						_id: id,
-						isVideoAvailable,
-
-						competition,
-						homeTeam,
-						awayTeam,
-
-						date,
-						firstHalf1,
-
-						fullGame,
-					} = game;
-
-					return (
-						<GamesContainer
-							key={`${game._id}-ReplayComponent`}
-							_id={id}
-							isVideoAvailable={isVideoAvailable}
-							competition={competition}
-							homeTeam={homeTeam}
-							awayTeam={awayTeam}
-							date={date}
-							firstHalf1={firstHalf1}
-							fullGame={fullGame}
-						/>
-					);
-				})}
+				{paginatedGames.map(game => (
+					<GamesContainer key={`${game._id}-ReplayComponent`} {...game} />
+				))}
 			</div>
+
 			<ThemeProvider theme={theme}>
 				<Pagination
-					sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						my: 2,
-					}}
-					count={pages}
+					sx={{ display: 'flex', justifyContent: 'center', my: 2 }}
+					count={totalPages}
 					color='primary'
 					page={currentPage}
-					onChange={(e, value) => handlePageChange(value)}
+					onChange={(_, value) => setCurrentPage(value)}
 				/>
 			</ThemeProvider>
 		</section>
