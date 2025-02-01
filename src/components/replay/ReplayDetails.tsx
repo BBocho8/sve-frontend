@@ -1,6 +1,6 @@
 import type { VideoV2 } from '@/types/Video';
 import { getFormattedDate, getFormattedTime } from '@/utils/formatDate';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -89,7 +89,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 
 			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center px-2 md:px-0 my-2 gap-x-2 w-full'>
 				{availableParts.map(part => (
-					<Button
+					<button
 						key={part}
 						type='button'
 						className={`btn ${part === gamePart ? 'bg-black' : ''}`}
@@ -101,7 +101,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 						}}
 					>
 						<Typography sx={{ fontWeight: 500 }}>{part.replace(/([A-Z])/g, ' $1').trim()}</Typography>
-					</Button>
+					</button>
 				))}
 			</div>
 
@@ -125,7 +125,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 				{gamePart && gameLinks[gamePart] && (
 					<>
 						{!downloadLink && (
-							<Button
+							<button
 								className={`btn px-2 ${isDownloading && 'bg-blue-500'}`}
 								color={isDownloading ? 'info' : 'success'}
 								type='button'
@@ -137,11 +137,11 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 									{isDownloading && <CircularProgress size={20} sx={{ color: 'white' }} />}
 									{isDownloading ? 'Generating download link...' : 'Download Video'}
 								</Typography>
-							</Button>
+							</button>
 						)}
 
 						{showDownload && (
-							<Button
+							<button
 								className='btn px-2'
 								onClick={() => {
 									if (!downloadLink) return;
@@ -157,14 +157,14 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 								disabled={!downloadLink} // Disable if no download link
 							>
 								<Typography sx={{ fontWeight: '600' }}>Download Video</Typography>
-							</Button>
+							</button>
 						)}
 					</>
 				)}
 
-				<Button className='btn px-2' onClick={() => setIsResultOpen(prev => !prev)} type='button'>
+				<button className='btn px-2' onClick={() => setIsResultOpen(prev => !prev)} type='button'>
 					<Typography sx={{ fontWeight: '600' }}>{isResultOpen ? 'Hide result' : 'See result'}</Typography>
-				</Button>
+				</button>
 				{isResultOpen && (
 					<p className='text-lg'>
 						{homeTeam} <span className='mt-2 text-xl font-bold'>{` ${homeScore} - ${awayScore} `}</span> {awayTeam}
