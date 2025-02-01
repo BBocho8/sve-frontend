@@ -3,17 +3,19 @@
 import { schemaTypes } from '@/types/sanity';
 import { Box } from '@mui/material';
 import { visionTool } from '@sanity/vision';
+import { useSession } from 'next-auth/react';
 // import { useSession } from 'next-auth/react';
 import { Studio, defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
+import AdminNotAuth from './AdminNotAuth';
 // import AdminNotAuth from './AdminNotAuth';
 
 const AdminPageComponent = ({
-	// adminUrl,
+	adminUrl,
 	projectId,
 	dataset,
 }: { adminUrl: string; projectId: string; dataset: string }) => {
-	// const { data: session } = useSession();
+	const { data: session } = useSession();
 
 	const sanityConfig = defineConfig({
 		name: 'default',
@@ -28,21 +30,7 @@ const AdminPageComponent = ({
 		},
 	});
 
-	return (
-		<Box
-			sx={{
-				height: '100vh',
-				maxHeight: '100dvh',
-				overscrollBehavior: 'none',
-				overflow: 'auto',
-				WebkitFontSmoothing: 'antialiased',
-			}}
-		>
-			<Studio config={sanityConfig} />
-		</Box>
-	);
-
-	// return session && session.user?.email === adminUrl ? (
+	// return (
 	// 	<Box
 	// 		sx={{
 	// 			height: '100vh',
@@ -54,9 +42,23 @@ const AdminPageComponent = ({
 	// 	>
 	// 		<Studio config={sanityConfig} />
 	// 	</Box>
-	// ) : (
-	// 	<AdminNotAuth />
 	// );
+
+	return session && session.user?.email === adminUrl ? (
+		<Box
+			sx={{
+				height: '100vh',
+				maxHeight: '100dvh',
+				overscrollBehavior: 'none',
+				overflow: 'auto',
+				WebkitFontSmoothing: 'antialiased',
+			}}
+		>
+			<Studio config={sanityConfig} />
+		</Box>
+	) : (
+		<AdminNotAuth />
+	);
 };
 
 export default AdminPageComponent;
