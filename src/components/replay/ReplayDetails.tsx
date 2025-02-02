@@ -74,7 +74,6 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 		}
 	};
 
-	console.log(downloadLink);
 	return (
 		<div className='flex flex-col items-center mx-auto my-4'>
 			<div className='text-center'>
@@ -142,6 +141,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 
 						{showDownload && (
 							<button
+								type='button'
 								className='btn px-2'
 								onClick={() => {
 									if (!downloadLink) return;
