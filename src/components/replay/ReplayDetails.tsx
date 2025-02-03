@@ -89,7 +89,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 			}
 
 			// Fetch the video from your API
-			const res = await axios.get(`/api/download?videoLink=${encodeURIComponent(videoLink)}`, {
+			const res = await axios.get(`/api/downloadVideo?videoLink=${encodeURIComponent(videoLink)}`, {
 				responseType: 'blob', // Ensures the response is treated as a file
 			});
 
