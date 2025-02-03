@@ -1,8 +1,8 @@
 import type { VideoV2 } from '@/types/Video';
 import { getFormattedDate, getFormattedTime } from '@/utils/formatDate';
-import { Box, CircularProgress, Typography } from '@mui/material';
-import axios from 'axios';
-import dayjs from 'dayjs';
+import { Box, Typography } from '@mui/material';
+// import axios from 'axios';
+// import dayjs from 'dayjs';
 import { useState } from 'react';
 
 type GamePart =
@@ -53,12 +53,12 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 
 	const availableParts = (Object.keys(gameLinks) as GamePart[]).filter(part => gameLinks[part]);
 
-	const [showDownload, setShowDownload] = useState(false);
-	const [downloadLink, setDownloadLink] = useState('');
-	const [isDownloading, setIsDownloading] = useState(false);
-	const formattedDate = dayjs(date).format('YYYY-MM-DD');
+	// const [showDownload, setShowDownload] = useState(false);
+	// const [downloadLink, setDownloadLink] = useState('');
+	// const [isDownloading, setIsDownloading] = useState(false);
+	// const formattedDate = dayjs(date).format('YYYY-MM-DD');
 
-	const [downloadFileName, setDownloadFileName] = useState('');
+	// const [downloadFileName, setDownloadFileName] = useState('');
 
 	// const handleFetch = async () => {
 	// 	try {
@@ -76,64 +76,64 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	// 	}
 	// };
 
-	const handleFetch = async () => {
-		try {
-			setIsDownloading(true);
+	// const handleFetch = async () => {
+	// 	try {
+	// 		setIsDownloading(true);
 
-			// Ensure the selected game part has a valid link
-			const videoLink = gameLinks[gamePart];
-			if (!videoLink) {
-				console.error('Invalid video link');
-				setIsDownloading(false);
-				return;
-			}
+	// 		// Ensure the selected game part has a valid link
+	// 		const videoLink = gameLinks[gamePart];
+	// 		if (!videoLink) {
+	// 			console.error('Invalid video link');
+	// 			setIsDownloading(false);
+	// 			return;
+	// 		}
 
-			// Fetch the video from your API
-			const res = await axios.get(`/api/downloadVideo?videoLink=${encodeURIComponent(videoLink)}`, {
-				responseType: 'blob', // Ensures the response is treated as a file
-			});
+	// 		// Fetch the video from your API
+	// 		const res = await axios.get(`/api/downloadVideo?videoLink=${encodeURIComponent(videoLink)}`, {
+	// 			responseType: 'blob', // Ensures the response is treated as a file
+	// 		});
 
-			// Create a URL for the blob data
-			const blob = new Blob([res.data], { type: 'video/mp4' });
-			const url = window.URL.createObjectURL(blob);
+	// 		// Create a URL for the blob data
+	// 		const blob = new Blob([res.data], { type: 'video/mp4' });
+	// 		const url = window.URL.createObjectURL(blob);
 
-			// Extract filename from headers
-			const contentDisposition = res.headers['content-disposition'];
-			let fileName = `${homeTeam}-${awayTeam}-${formattedDate}-${gamePart}.mp4`;
+	// 		// Extract filename from headers
+	// 		const contentDisposition = res.headers['content-disposition'];
+	// 		let fileName = `${homeTeam}-${awayTeam}-${formattedDate}-${gamePart}.mp4`;
 
-			if (contentDisposition) {
-				const match = contentDisposition.match(/filename="(.+?)"/);
-				if (match) {
-					fileName = decodeURIComponent(match[1]);
-				}
-			}
+	// 		if (contentDisposition) {
+	// 			const match = contentDisposition.match(/filename="(.+?)"/);
+	// 			if (match) {
+	// 				fileName = decodeURIComponent(match[1]);
+	// 			}
+	// 		}
 
-			setDownloadLink(url);
-			setDownloadFileName(fileName); // Save filename for later use
-			setShowDownload(true);
-		} catch (error) {
-			console.error('Download failed:', error);
-		} finally {
-			setIsDownloading(false);
-		}
-	};
+	// 		setDownloadLink(url);
+	// 		setDownloadFileName(fileName); // Save filename for later use
+	// 		setShowDownload(true);
+	// 	} catch (error) {
+	// 		console.error('Download failed:', error);
+	// 	} finally {
+	// 		setIsDownloading(false);
+	// 	}
+	// };
 
-	const handleDownload = () => {
-		if (!downloadLink) return;
+	// const handleDownload = () => {
+	// 	if (!downloadLink) return;
 
-		// Create an invisible anchor tag for downloading
-		const a = document.createElement('a');
-		a.href = downloadLink;
-		a.download = downloadFileName || 'GameVideo.mp4'; // Use saved filename
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
+	// 	// Create an invisible anchor tag for downloading
+	// 	const a = document.createElement('a');
+	// 	a.href = downloadLink;
+	// 	a.download = downloadFileName || 'GameVideo.mp4'; // Use saved filename
+	// 	document.body.appendChild(a);
+	// 	a.click();
+	// 	document.body.removeChild(a);
 
-		// Clean up blob URL after download
-		URL.revokeObjectURL(downloadLink);
-		setDownloadLink('');
-		setShowDownload(false);
-	};
+	// 	// Clean up blob URL after download
+	// 	URL.revokeObjectURL(downloadLink);
+	// 	setDownloadLink('');
+	// 	setShowDownload(false);
+	// };
 
 	return (
 		<div className='flex flex-col items-center mx-auto my-4'>
@@ -155,9 +155,9 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 						className={`btn ${part === gamePart ? 'bg-black' : ''}`}
 						onClick={() => {
 							setGamePart(part);
-							setDownloadLink('');
-							setShowDownload(false);
-							setIsDownloading(false);
+							// setDownloadLink('');
+							// setShowDownload(false);
+							// setIsDownloading(false);
 						}}
 					>
 						<Typography sx={{ fontWeight: 500 }}>{part.replace(/([A-Z])/g, ' $1').trim()}</Typography>
@@ -223,7 +223,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 					</>
 				)} */}
 
-				{!downloadLink && gamePart && (
+				{/* {!downloadLink && gamePart && (
 					<button
 						className={`btn px-2 ${isDownloading && 'bg-blue-500'}`}
 						type='button'
@@ -243,7 +243,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 					<button className='btn px-2' onClick={handleDownload} type='button'>
 						<Typography sx={{ fontWeight: '600' }}>Download Video</Typography>
 					</button>
-				)}
+				)} */}
 
 				<button className='btn px-2' onClick={() => setIsResultOpen(prev => !prev)} type='button'>
 					<Typography sx={{ fontWeight: '600' }}>{isResultOpen ? 'Hide result' : 'See result'}</Typography>
