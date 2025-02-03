@@ -75,10 +75,6 @@ import fs from 'fs-extra';
 import type { NextRequest } from 'next/server';
 import path from 'node:path';
 
-export const config = {
-	runtime: 'nodejs', // Ensure Netlify runs this in Node.js mode
-};
-
 export async function GET(request: NextRequest) {
 	try {
 		const videoLink = request.nextUrl.searchParams.get('videoLink');
