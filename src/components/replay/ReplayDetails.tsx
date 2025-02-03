@@ -58,20 +58,81 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const formattedDate = dayjs(date).format('YYYY-MM-DD');
 
+	const [downloadFileName, setDownloadFileName] = useState('');
+
+	// const handleFetch = async () => {
+	// 	try {
+	// 		setIsDownloading(true);
+	// 		// Validate or format the video link if needed
+	// 		const res = await axios.get(`/api/download?videoLink=${gameLinks[gamePart]}`, {
+	// 			responseType: 'blob', // Optional: Ensures proper handling
+	// 		});
+	// 		const url = URL.createObjectURL(res.data);
+	// 		setDownloadLink(url);
+	// 		setIsDownloading(false);
+	// 		setShowDownload(true);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
+
 	const handleFetch = async () => {
 		try {
 			setIsDownloading(true);
-			// Validate or format the video link if needed
-			const res = await axios.get(`/api/download?videoLink=${gameLinks[gamePart]}`, {
-				responseType: 'blob', // Optional: Ensures proper handling
+
+			// Ensure the selected game part has a valid link
+			const videoLink = gameLinks[gamePart];
+			if (!videoLink) {
+				console.error('Invalid video link');
+				setIsDownloading(false);
+				return;
+			}
+
+			// Fetch the video from your API
+			const res = await axios.get(`/api/download?videoLink=${encodeURIComponent(videoLink)}`, {
+				responseType: 'blob', // Ensures the response is treated as a file
 			});
-			const url = URL.createObjectURL(res.data);
+
+			// Create a URL for the blob data
+			const blob = new Blob([res.data], { type: 'video/mp4' });
+			const url = window.URL.createObjectURL(blob);
+
+			// Extract filename from headers
+			const contentDisposition = res.headers['content-disposition'];
+			let fileName = `${homeTeam}-${awayTeam}-${formattedDate}-${gamePart}.mp4`;
+
+			if (contentDisposition) {
+				const match = contentDisposition.match(/filename="(.+?)"/);
+				if (match) {
+					fileName = decodeURIComponent(match[1]);
+				}
+			}
+
 			setDownloadLink(url);
-			setIsDownloading(false);
+			setDownloadFileName(fileName); // Save filename for later use
 			setShowDownload(true);
 		} catch (error) {
-			console.error(error);
+			console.error('Download failed:', error);
+		} finally {
+			setIsDownloading(false);
 		}
+	};
+
+	const handleDownload = () => {
+		if (!downloadLink) return;
+
+		// Create an invisible anchor tag for downloading
+		const a = document.createElement('a');
+		a.href = downloadLink;
+		a.download = downloadFileName || 'GameVideo.mp4'; // Use saved filename
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+
+		// Clean up blob URL after download
+		URL.revokeObjectURL(downloadLink);
+		setDownloadLink('');
+		setShowDownload(false);
 	};
 
 	return (
@@ -121,7 +182,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 					gap: 1,
 				}}
 			>
-				{gamePart && gameLinks[gamePart] && (
+				{/* {gamePart && gameLinks[gamePart] && (
 					<>
 						{!downloadLink && (
 							<button
@@ -160,6 +221,28 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 							</button>
 						)}
 					</>
+				)} */}
+
+				{!downloadLink && gamePart && (
+					<button
+						className={`btn px-2 ${isDownloading && 'bg-blue-500'}`}
+						type='button'
+						onClick={handleFetch}
+						disabled={isDownloading}
+					>
+						<Typography
+							sx={{ fontWeight: '600', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}
+						>
+							{isDownloading && <CircularProgress size={20} sx={{ color: 'white' }} />}
+							{isDownloading ? 'Generating download link...' : 'Generate Download'}
+						</Typography>
+					</button>
+				)}
+
+				{showDownload && (
+					<button className='btn px-2' onClick={handleDownload} type='button'>
+						<Typography sx={{ fontWeight: '600' }}>Download Video</Typography>
+					</button>
 				)}
 
 				<button className='btn px-2' onClick={() => setIsResultOpen(prev => !prev)} type='button'>

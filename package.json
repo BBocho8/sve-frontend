@@ -16,6 +16,7 @@
 		"@emotion/react": "^11.13.3",
 		"@emotion/styled": "^11.13.0",
 		"@mui/material": "^6.1.6",
+		"@netlify/functions": "^3.0.0",
 		"@netlify/plugin-nextjs": "^5.8.1",
 		"@ramda/mergedeepleft": "^0.26.1",
 		"@sanity/vision": "^3.64.3",
