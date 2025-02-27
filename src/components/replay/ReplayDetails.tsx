@@ -1,7 +1,8 @@
 import type { VideoV2 } from '@/types/Video';
-import { getFormattedDate, getFormattedTime } from '@/utils/formatDate';
-import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
+import GameHeader from './GameHeader';
+import GamePartsButtons from './GamePartsButtons';
+import GameResult from './GameResult';
 
 type GamePart =
 	| 'firstHalf1'
@@ -19,7 +20,6 @@ type ReplayDetailsProps = {
 
 const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	const [gamePart, setGamePart] = useState<GamePart>('');
-	const [isResultOpen, setIsResultOpen] = useState(false);
 
 	const {
 		isVideoAvailable,
@@ -53,31 +53,8 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 
 	return (
 		<div className='flex flex-col items-center mx-auto my-4'>
-			<div className='text-center'>
-				<p className='my-2 text-xl font-semibold'>
-					{homeTeam} <span className='text-xl font-bold'>-</span> {awayTeam}
-				</p>
-				<p>{competition}</p>
-				<p>
-					<span>{getFormattedDate(date)}</span> - <span>{getFormattedTime(date)}</span>
-				</p>
-			</div>
-
-			<div className='flex overflow-auto whitespace-nowrap no-scrollbar items-center justify-start md:justify-center px-2 md:px-0 my-2 gap-x-2 w-full'>
-				{availableParts.map(part => (
-					<button
-						key={part}
-						type='button'
-						className={`btn ${part === gamePart ? 'bg-black' : ''}`}
-						onClick={() => {
-							setGamePart(part);
-						}}
-					>
-						<Typography sx={{ fontWeight: 500 }}>{part.replace(/([A-Z])/g, ' $1').trim()}</Typography>
-					</button>
-				))}
-			</div>
-
+			<GameHeader homeTeam={homeTeam} awayTeam={awayTeam} competition={competition} date={date} />
+			<GamePartsButtons availableParts={availableParts} selectedPart={gamePart} onSelectPart={setGamePart} />
 			{!isVideoAvailable && <p className='text-blue-800'>Game video is not yet available</p>}
 			{gamePart && gameLinks[gamePart] && (
 				<iframe
@@ -87,23 +64,7 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 					title='Game Replay'
 				/>
 			)}
-
-			<Box
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 1,
-				}}
-			>
-				<button className='btn px-2' onClick={() => setIsResultOpen(prev => !prev)} type='button'>
-					<Typography sx={{ fontWeight: '600' }}>{isResultOpen ? 'Hide result' : 'See result'}</Typography>
-				</button>
-				{isResultOpen && (
-					<p className='text-lg'>
-						{homeTeam} <span className='mt-2 text-xl font-bold'>{` ${homeScore} - ${awayScore} `}</span> {awayTeam}
-					</p>
-				)}
-			</Box>
+			<GameResult homeTeam={homeTeam} awayTeam={awayTeam} homeScore={homeScore} awayScore={awayScore} />
 		</div>
 	);
 };
