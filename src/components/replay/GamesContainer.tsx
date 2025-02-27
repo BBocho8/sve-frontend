@@ -29,6 +29,7 @@ const GamesContainer = ({
 						height={720}
 						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 						priority
+						style={{ height: '225px', objectFit: 'cover', objectPosition: isVideoAvailable ? 'cover' : 'bottom' }}
 					/>
 					<div className='flex flex-col my-2 md:my-4'>
 						<div className='flex items-center justify-start px-4 gap-x-3'>
