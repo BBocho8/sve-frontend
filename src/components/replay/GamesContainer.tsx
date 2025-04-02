@@ -1,5 +1,5 @@
 import type { VideoV2 } from '@/types/Video';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import logo from '../../../public/logo.png';
 import gameImg from '../../../public/team.jpg';
