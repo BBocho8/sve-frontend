@@ -21,18 +21,6 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "DOMAIN_URL=${{ secrets.DOMAIN_URL }}" >> .env
-          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> .env
-          echo "SANITY_PROJECT_ID=${{ secrets.SANITY_PROJECT_ID }}" >> .env
-          echo "SANITY_DATASET=${{ secrets.SANITY_DATASET }}" >> .env
-          echo "SANITY_API_VERSION=${{ secrets.SANITY_API_VERSION }}" >> .env
-          echo "SANITY_API_TOKEN=${{ secrets.SANITY_API_TOKEN }}" >> .env
-          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
-          echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
-          echo "GITHUB_ID=${{ secrets.GITHUB_ID }}" >> .env
-          echo "GITHUB_SECRET=${{ secrets.GITHUB_SECRET }}" >> .env
-          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
-          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
           echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> .env
           echo "SUPABASE_JWT_SECRET=${{ secrets.SUPABASE_JWT_SECRET }}" >> .env
