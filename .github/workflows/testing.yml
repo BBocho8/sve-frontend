@@ -9,8 +9,22 @@ on:
       - main
 
 jobs:
+   # Secret scanning job to detect secrets in codebase
+  secret-scanning:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # Check out the repository content to the runner
+      with:
+        fetch-depth: 0
+    - name: Run Gitleaks Scan
+      # Running Gitleaks to scan the code for secrets
+      run: |
+        docker run --rm -v $(pwd):/code -u $(id -u):$(id -g) zricethezav/gitleaks:v8.18.4@sha256:75bdb2b2f4db213cde0b8295f13a88d6b333091bbfbf3012a4e083d00d31caba -s /code detect --baseline-path /code/leaks-baseline.json -v
+
   build:
-    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:

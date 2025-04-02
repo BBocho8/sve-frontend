@@ -16,6 +16,7 @@ const GamesContainer = ({
 	firstHalf1,
 	fullGame,
 }: Partial<VideoV2>) => {
+	// Check if the video is available and get the thumbnail
 	const videoThumbnail = getYoutubeID(firstHalf1) || getYoutubeID(fullGame);
 
 	return (
