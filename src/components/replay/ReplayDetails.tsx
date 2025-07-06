@@ -54,8 +54,11 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	return (
 		<div className='flex flex-col items-center mx-auto my-4'>
 			<GameHeader homeTeam={homeTeam} awayTeam={awayTeam} competition={competition} date={date} />
-			<GamePartsButtons availableParts={availableParts} selectedPart={gamePart} onSelectPart={setGamePart} />
-			{!isVideoAvailable && <p className='text-blue-800'>Game video is not yet available</p>}
+			{isVideoAvailable ? (
+				<GamePartsButtons availableParts={availableParts} selectedPart={gamePart} onSelectPart={setGamePart} />
+			) : (
+				<p className='text-blue-800'>Game video is not yet available</p>
+			)}
 			{gamePart && gameLinks[gamePart] && (
 				<iframe
 					src={gameLinks[gamePart]}
