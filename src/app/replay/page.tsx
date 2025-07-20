@@ -1,7 +1,7 @@
-import Replay from '@/components/replay/Replay';
+import ReplayPage from '@/components/replay/ReplayPage';
 
-const ReplayPage = async () => {
-	return <Replay />;
+const ReplayPageWrapper = async () => {
+	return <ReplayPage />;
 };
 
-export default ReplayPage;
+export default ReplayPageWrapper;

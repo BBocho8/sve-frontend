@@ -3,18 +3,10 @@
 import { schemaTypes } from '@/types/sanity';
 import { Box } from '@mui/material';
 import { visionTool } from '@sanity/vision';
-import { useSession } from 'next-auth/react';
 import { Studio, defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import AdminNotAuth from './AdminNotAuth';
 
-const AdminPageComponent = ({
-	adminUrl,
-	projectId,
-	dataset,
-}: { adminUrl: string; projectId: string; dataset: string }) => {
-	const { data: session } = useSession();
-
+const AdminPageComponent = ({ projectId, dataset }: { projectId: string; dataset: string }) => {
 	const sanityConfig = defineConfig({
 		name: 'default',
 		title: 'sve-db',
@@ -28,7 +20,9 @@ const AdminPageComponent = ({
 		},
 	});
 
-	return session && session.user?.email === adminUrl ? (
+	// If we reach here, middleware has already verified authentication and admin email
+	// Just show the Studio
+	return (
 		<Box
 			sx={{
 				height: '100vh',
@@ -40,8 +34,6 @@ const AdminPageComponent = ({
 		>
 			<Studio config={sanityConfig} />
 		</Box>
-	) : (
-		<AdminNotAuth />
 	);
 };
 
