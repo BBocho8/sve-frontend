@@ -199,16 +199,32 @@ export const semanticColors = {
 // Type for theme modes
 export type ThemeMode = 'light' | 'dark';
 
+// Type for color palette structure
+type ColorValue = {
+	light: string;
+	dark: string;
+};
+
+type ColorPaletteValue = ColorValue | Record<string, ColorValue | Record<string, ColorValue>>;
+
 // Function to get color value based on theme
 export function getColorValue(colorPath: string, theme: ThemeMode): string {
 	const path = colorPath.split('.');
-	let current: any = colorPalette;
+	let current: ColorPaletteValue = colorPalette;
 
 	for (const key of path) {
-		current = current[key];
+		if (typeof current === 'object' && current !== null && key in current) {
+			current = (current as Record<string, ColorPaletteValue>)[key];
+		} else {
+			throw new Error(`Invalid color path: ${colorPath}`);
+		}
 	}
 
-	return current[theme] as string;
+	if (typeof current === 'object' && current !== null && 'light' in current && 'dark' in current) {
+		return (current as ColorValue)[theme];
+	}
+
+	throw new Error(`Invalid color value at path: ${colorPath}`);
 }
 
 // Function to generate CSS custom properties
@@ -216,13 +232,13 @@ export function generateCSSVariables(theme: ThemeMode): Record<string, string> {
 	const variables: Record<string, string> = {};
 
 	// Generate variables for all color paths
-	const generateVars = (obj: any, prefix = '') => {
+	const generateVars = (obj: ColorPaletteValue, prefix = '') => {
 		for (const [key, value] of Object.entries(obj)) {
 			if (typeof value === 'object' && value !== null && 'light' in value && 'dark' in value) {
 				const varName = `--color-${prefix}${key}`;
-				variables[varName] = value[theme as keyof typeof value] as string;
+				variables[varName] = (value as ColorValue)[theme];
 			} else if (typeof value === 'object' && value !== null) {
-				generateVars(value, `${prefix}${key}-`);
+				generateVars(value as ColorPaletteValue, `${prefix}${key}-`);
 			}
 		}
 	};
