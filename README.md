@@ -1,4 +1,4 @@
-# SVE Match Replays 🏈
+# SVE Match Replays ⚽️
 
 A modern web application for coaches, players, and team staff to watch and analyze football match replays. Built with Next.js 15, TypeScript, and Sanity CMS.
 
