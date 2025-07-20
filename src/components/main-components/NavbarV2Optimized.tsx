@@ -1,40 +1,45 @@
 'use client';
-import { type TProjectSetup, useProjectSetup } from '@/stores/sanity-store';
 import type { VideoV2 } from '@/types/Video';
-import { fetchVideosV2 } from '@/utils/fetchVideo';
 import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import removeAccents from 'remove-accents';
 import useSWR from 'swr';
 import { useOnClickOutside } from 'usehooks-ts';
 import logo from '../../../public/logo.png';
+import NavbarLoading from './NavbarLoading';
 
-const NavbarV2 = ({
-	projectId,
-	dataset,
-	token,
-	supabaseUrl,
-	supabaseServiceRoleKey,
-}: {
-	projectId: string;
-	dataset: string;
-	token: string;
-	supabaseUrl: string;
-	supabaseServiceRoleKey: string;
-}) => {
-	const { data: session } = useSession();
+const NavbarV2Optimized = () => {
+	const { data: session, status } = useSession();
 
-	const { creds, setProjectSetup } = useProjectSetup();
+	// Only fetch videos when search is actually used
+	const [isSearchActive, setIsSearchActive] = useState(false);
+	const { data, isLoading, error } = useSWR(
+		isSearchActive ? '/api/videos' : null,
+		async (url: string) => {
+			const response = await fetch(url);
+			if (!response.ok) {
+				throw new Error('Failed to fetch videos');
+			}
+			return response.json();
+		},
+		{
+			revalidateOnFocus: false,
+			revalidateOnReconnect: false,
+			dedupingInterval: 300000, // 5 minutes
+			errorRetryCount: 2,
+			errorRetryInterval: 1000,
+		},
+	);
 
-	const { data } = useSWR('fetchVideosV2', () => fetchVideosV2(projectId, dataset));
 	const [isOpen, setIsOpen] = useState(false);
 	const ref = useRef(null);
 	const [query, setQuery] = useState('');
+
 	const getFilteredItems = (query: string, items: VideoV2[]) => {
 		if (!query) {
 			return items;
@@ -62,18 +67,29 @@ const NavbarV2 = ({
 		'translate-x-0 opacity-100': isOpen,
 	});
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		setProjectSetup({
-			...(creds as TProjectSetup | undefined),
-			projectId,
-			dataset,
-			token,
-			supabaseUrl,
-			supabaseServiceRoleKey,
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	// Handle search input focus to trigger data fetching
+	const handleSearchFocus = () => {
+		if (!isSearchActive) {
+			setIsSearchActive(true);
+		}
+	};
+
+	// Handle search input change to trigger data fetching when typing
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value;
+		setQuery(value);
+
+		// Only activate search if user types more than 2 characters
+		if (value.length > 2 && !isSearchActive) {
+			setIsSearchActive(true);
+		}
+	};
+
+	// Show loading state while session is loading
+	if (status === 'loading') {
+		return <NavbarLoading />;
+	}
+
 	return (
 		<nav ref={ref} className='relative bg-white shadow '>
 			<div className='container px-6 py-3 mx-auto md:flex'>
@@ -201,27 +217,40 @@ const NavbarV2 = ({
 							<input
 								type='text'
 								className='w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg   focus:border-primaryGreen  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primaryGreen'
-								onChange={e => setQuery(e.target.value)}
+								onChange={handleSearchChange}
+								onFocus={handleSearchFocus}
 								value={query || ''}
 								placeholder='Search for a game'
 							/>
 						</div>
 						<ul className='overflow-y-auto max-h-52'>
-							{query.length > 2 &&
-								filteredItems?.map(game => (
-									<Link
-										onClick={() => {
-											setQuery('');
-											setIsOpen(false);
-										}}
-										key={game._id}
-										href={`/replay/${game._id}`}
-									>
-										<p className='px-4 py-2 text-black bg-white border hover:bg-gray-300 text-center'>
-											{game.homeTeam} vs {game.awayTeam} - {dayjs(game?.date).format('MMM D, YYYY')}
-										</p>
-									</Link>
-								))}
+							{query.length > 2 && (
+								<>
+									{isLoading && <li className='px-4 py-2 text-gray-500 text-center'>Loading games...</li>}
+									{error && (
+										<li className='px-4 py-2 text-red-500 text-center'>Failed to load games. Please try again.</li>
+									)}
+									{!isLoading && !error && filteredItems?.length === 0 && (
+										<li className='px-4 py-2 text-gray-500 text-center'>No games found</li>
+									)}
+									{!isLoading &&
+										!error &&
+										filteredItems?.map(game => (
+											<Link
+												onClick={() => {
+													setQuery('');
+													setIsOpen(false);
+												}}
+												key={game._id}
+												href={`/replay/${game._id}`}
+											>
+												<p className='px-4 py-2 text-black bg-white border hover:bg-gray-300 text-center'>
+													{game.homeTeam} vs {game.awayTeam} - {dayjs(game?.date).format('MMM D, YYYY')}
+												</p>
+											</Link>
+										))}
+								</>
+							)}
 						</ul>
 					</div>
 				</div>
@@ -230,4 +259,4 @@ const NavbarV2 = ({
 	);
 };
 
-export default NavbarV2;
+export default NavbarV2Optimized;

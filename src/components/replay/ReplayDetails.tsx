@@ -1,4 +1,5 @@
 import type { VideoV2 } from '@/types/Video';
+import { ExclamationTriangleIcon, PlayIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import GameHeader from './GameHeader';
 import GamePartsButtons from './GamePartsButtons';
@@ -52,22 +53,61 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 	const availableParts = (Object.keys(gameLinks) as GamePart[]).filter(part => gameLinks[part]);
 
 	return (
-		<div className='flex flex-col items-center mx-auto my-4'>
-			<GameHeader homeTeam={homeTeam} awayTeam={awayTeam} competition={competition} date={date} />
-			{isVideoAvailable ? (
-				<GamePartsButtons availableParts={availableParts} selectedPart={gamePart} onSelectPart={setGamePart} />
-			) : (
-				<p className='text-blue-800'>Game video is not yet available</p>
-			)}
-			{gamePart && gameLinks[gamePart] && (
-				<iframe
-					src={gameLinks[gamePart]}
-					allowFullScreen
-					className='w-4/5 h-auto my-2 aspect-video'
-					title='Game Replay'
-				/>
-			)}
-			<GameResult homeTeam={homeTeam} awayTeam={awayTeam} homeScore={homeScore} awayScore={awayScore} />
+		<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+			{/* Game Header */}
+			<div className='mb-8'>
+				<GameHeader homeTeam={homeTeam} awayTeam={awayTeam} competition={competition} date={date} />
+			</div>
+
+			{/* Video Section */}
+			<div className='bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden'>
+				{isVideoAvailable ? (
+					<>
+						{/* Video Player Controls */}
+						<div className='p-6 border-b border-gray-200'>
+							<div className='flex items-center gap-2 mb-4'>
+								<PlayIcon className='w-5 h-5 text-green-600' />
+								<h3 className='text-lg font-semibold text-gray-900'>Watch Replay</h3>
+							</div>
+							<GamePartsButtons availableParts={availableParts} selectedPart={gamePart} onSelectPart={setGamePart} />
+						</div>
+
+						{/* Video Player */}
+						{gamePart && gameLinks[gamePart] ? (
+							<div className='p-6'>
+								<div className='relative aspect-video bg-gray-900 rounded-lg overflow-hidden'>
+									<iframe
+										src={gameLinks[gamePart]}
+										allowFullScreen
+										className='w-full h-full'
+										title={`${homeTeam} vs ${awayTeam} - ${gamePart}`}
+									/>
+								</div>
+							</div>
+						) : (
+							<div className='p-12 text-center'>
+								<div className='text-gray-400 mb-4'>
+									<PlayIcon className='w-16 h-16 mx-auto' />
+								</div>
+								<p className='text-gray-600'>Select a game part to start watching</p>
+							</div>
+						)}
+					</>
+				) : (
+					<div className='p-12 text-center'>
+						<div className='text-yellow-500 mb-4'>
+							<ExclamationTriangleIcon className='w-16 h-16 mx-auto' />
+						</div>
+						<h3 className='text-lg font-medium text-gray-900 mb-2'>Video Not Available</h3>
+						<p className='text-gray-600'>Game video is not yet available. Please check back later.</p>
+					</div>
+				)}
+			</div>
+
+			{/* Game Result */}
+			<div className='mt-8'>
+				<GameResult homeTeam={homeTeam} awayTeam={awayTeam} homeScore={homeScore} awayScore={awayScore} />
+			</div>
 		</div>
 	);
 };

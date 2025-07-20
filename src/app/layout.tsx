@@ -1,9 +1,8 @@
-import NavbarV2 from '@/components/main-components/NavbarV2';
+import NavbarV2Optimized from '@/components/main-components/NavbarV2Optimized';
+import SanityProvider from '@/components/providers/SanityProvider';
 import SessionProvider from '@/components/providers/SessionProvider';
-import authOptions from '@/utils/auth';
 import { SWRProvider } from '@/utils/swr/swr-provider';
 import type { Metadata } from 'next';
-import { getServerSession } from 'next-auth';
 import localFont from 'next/font/local';
 import Footer from '../components/main-components/Footer';
 import './globals.css';
@@ -23,29 +22,36 @@ export const metadata: Metadata = {
 	title: 'SVE Mendig - Match Replay',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const session = await getServerSession(authOptions);
+	// Get credentials from environment variables
+	const projectId = process.env.SANITY_PROJECT_ID as string;
+	const dataset = process.env.SANITY_DATASET as string;
+	const token = process.env.SANITY_API_TOKEN as string;
+	const supabaseUrl = process.env.SUPABASE_URL as string;
+	const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY as string;
 
 	return (
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<SessionProvider session={session}>
+				<SessionProvider>
 					<SWRProvider>
-						<main>
-							<NavbarV2
-								projectId={process.env.SANITY_PROJECT_ID as string}
-								dataset={process.env.SANITY_DATASET as string}
-								token={process.env.SANITY_API_TOKEN as string}
-								supabaseUrl={process.env.SUPABASE_URL as string}
-								supabaseServiceRoleKey={process.env.SUPABASE_SERVICE_ROLE_KEY as string}
-							/>
-							{children}
-							<Footer />
-						</main>
+						<SanityProvider
+							projectId={projectId}
+							dataset={dataset}
+							token={token}
+							supabaseUrl={supabaseUrl}
+							supabaseServiceRoleKey={supabaseServiceRoleKey}
+						>
+							<main>
+								<NavbarV2Optimized />
+								{children}
+								<Footer />
+							</main>
+						</SanityProvider>
 					</SWRProvider>
 				</SessionProvider>
 			</body>
