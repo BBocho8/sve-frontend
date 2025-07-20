@@ -7,8 +7,11 @@ import { useEffect, useState } from 'react';
 const ColorSystemDemo = () => {
 	const { theme } = useTheme();
 	const [cssVariables, setCssVariables] = useState<Record<string, string>>({});
+	const [isClient, setIsClient] = useState(false);
 
 	useEffect(() => {
+		setIsClient(true);
+
 		// Get current CSS variables from the document
 		const root = document.documentElement;
 		const computedStyle = getComputedStyle(root);
@@ -38,7 +41,9 @@ const ColorSystemDemo = () => {
 					<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
 						<div>
 							<h3 className='text-lg font-semibold text-text-primary mb-2'>Current Theme: {theme}</h3>
-							<p className='text-text-secondary mb-2'>Document Classes: {document.documentElement.className}</p>
+							<p className='text-text-secondary mb-2'>
+								Document Classes: {isClient ? document.documentElement.className : 'Loading...'}
+							</p>
 							<p className='text-text-secondary'>Generated Variables: {Object.keys(generatedVars).length}</p>
 						</div>
 						<div>
