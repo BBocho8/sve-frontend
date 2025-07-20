@@ -99,7 +99,7 @@ const EnhancedSearchBar = ({ value, onChange, placeholder = 'Search games...', g
 			{/* Search Input */}
 			<div className='relative'>
 				<div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-					<MagnifyingGlassIcon className='h-5 w-5 text-gray-400' />
+					<MagnifyingGlassIcon className='h-5 w-5 text-text-tertiary' />
 				</div>
 				<input
 					ref={inputRef}
@@ -117,12 +117,12 @@ const EnhancedSearchBar = ({ value, onChange, placeholder = 'Search games...', g
 					}}
 					onKeyDown={handleKeyDown}
 					placeholder={placeholder}
-					className='block w-full pl-10 pr-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors'
+					className='block w-full pl-10 pr-10 py-3 border border-border-secondary rounded-lg bg-surface-primary text-text-primary placeholder-text-tertiary focus:ring-2 focus:ring-interactive-primary focus:border-transparent transition-colors'
 				/>
 				{value && (
 					<button
 						onClick={clearSearch}
-						className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors'
+						className='absolute inset-y-0 right-0 pr-3 flex items-center text-text-tertiary hover:text-text-primary transition-colors'
 						type='button'
 					>
 						<XMarkIcon className='h-5 w-5' />
@@ -132,25 +132,25 @@ const EnhancedSearchBar = ({ value, onChange, placeholder = 'Search games...', g
 
 			{/* Suggestions Dropdown */}
 			{showSuggestions && isFocused && (
-				<div className='absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 max-h-80 overflow-y-auto'>
+				<div className='absolute z-50 w-full mt-1 bg-surface-primary rounded-lg shadow-lg border border-border-primary max-h-80 overflow-y-auto'>
 					{/* Search History */}
 					{searchHistory.length > 0 && !value.trim() && (
 						<div className='p-2'>
-							<div className='text-xs font-medium text-gray-500 dark:text-gray-400 px-3 py-1'>Recent Searches</div>
+							<div className='text-xs font-medium text-text-tertiary px-3 py-1'>Recent Searches</div>
 							{searchHistory.map(query => (
 								<button
 									key={`history-${query}`}
 									onClick={() => handleSearch(query)}
-									className='w-full flex items-center justify-between px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors'
+									className='w-full flex items-center justify-between px-3 py-2 text-sm text-text-primary hover:bg-surface-secondary rounded-md transition-colors'
 									type='button'
 								>
 									<div className='flex items-center gap-2'>
-										<ClockIcon className='w-4 h-4 text-gray-400' />
+										<ClockIcon className='w-4 h-4 text-text-tertiary' />
 										<span>{query}</span>
 									</div>
 									<button
 										onClick={e => removeFromHistory(query, e)}
-										className='text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors'
+										className='text-text-tertiary hover:text-text-primary transition-colors'
 										type='button'
 									>
 										<XMarkIcon className='w-4 h-4' />
@@ -163,17 +163,15 @@ const EnhancedSearchBar = ({ value, onChange, placeholder = 'Search games...', g
 					{/* Suggestions */}
 					{suggestions.length > 0 && (
 						<div className='p-2'>
-							{value.trim() && (
-								<div className='text-xs font-medium text-gray-500 dark:text-gray-400 px-3 py-1'>Suggestions</div>
-							)}
+							{value.trim() && <div className='text-xs font-medium text-text-tertiary px-3 py-1'>Suggestions</div>}
 							{suggestions.map(suggestion => (
 								<button
 									key={`suggestion-${suggestion}`}
 									onClick={() => handleSearch(suggestion)}
-									className='w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors'
+									className='w-full flex items-center gap-2 px-3 py-2 text-sm text-text-primary hover:bg-surface-secondary rounded-md transition-colors'
 									type='button'
 								>
-									<MagnifyingGlassIcon className='w-4 h-4 text-gray-400' />
+									<MagnifyingGlassIcon className='w-4 h-4 text-text-tertiary' />
 									<span>{suggestion}</span>
 								</button>
 							))}
@@ -182,17 +180,17 @@ const EnhancedSearchBar = ({ value, onChange, placeholder = 'Search games...', g
 
 					{/* No results */}
 					{value.trim() && suggestions.length === 0 && (
-						<div className='p-4 text-center text-sm text-gray-500 dark:text-gray-400'>
+						<div className='p-4 text-center text-sm text-text-tertiary'>
 							No suggestions found for &quot;{value}&quot;
 						</div>
 					)}
 
 					{/* Search button */}
 					{value.trim() && (
-						<div className='p-2 border-t border-gray-200 dark:border-gray-700'>
+						<div className='p-2 border-t border-border-primary'>
 							<button
 								onClick={() => handleSearch(value)}
-								className='w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-md transition-colors'
+								className='w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-interactive-primary hover:bg-interactive-primary/10 rounded-md transition-colors'
 								type='button'
 							>
 								<ArrowUpIcon className='w-4 h-4' />

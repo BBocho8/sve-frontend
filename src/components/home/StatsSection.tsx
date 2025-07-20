@@ -29,59 +29,55 @@ const StatsSection = () => {
 	// Show loading state if credentials are not ready or data is loading
 	if (!shouldFetch || isLoading) {
 		return (
-			<section className='py-16 bg-gradient-to-br from-green-600 to-green-700 dark:from-blue-600 dark:to-blue-700 text-white'>
-				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-					<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
-						{[1, 2, 3, 4].map(i => (
-							<div key={i} className='text-center animate-pulse'>
-								<div className='h-8 bg-green-500 dark:bg-blue-500 rounded mb-2' />
-								<div className='h-4 bg-green-500 dark:bg-blue-500 rounded w-3/4 mx-auto' />
-							</div>
-						))}
-					</div>
+			<div className='py-8'>
+				<div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+					{[1, 2, 3, 4].map(i => (
+						<div key={i} className='text-center animate-pulse'>
+							<div className='h-8 bg-text-inverse/20 rounded mb-2' />
+							<div className='h-4 bg-text-inverse/20 rounded w-3/4 mx-auto' />
+						</div>
+					))}
 				</div>
-			</section>
+			</div>
 		);
 	}
 
 	return (
-		<section className='py-16 bg-gradient-to-br from-green-600 to-green-700 dark:from-blue-600 dark:to-blue-700 text-white'>
-			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-				<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
-					<div className='text-center'>
-						<div className='flex items-center justify-center mb-2'>
-							<PlayIcon className='w-8 h-8 mr-2' />
-							<span className='text-3xl font-bold'>{totalGames}</span>
-						</div>
-						<p className='text-green-100 dark:text-blue-100'>Total Games</p>
+		<div className='py-8'>
+			<div className='grid grid-cols-2 md:grid-cols-4 gap-6'>
+				<div className='text-center'>
+					<div className='flex items-center justify-center mb-2'>
+						<PlayIcon className='w-6 h-6 mr-2' />
+						<span className='text-2xl font-bold'>{totalGames}</span>
 					</div>
+					<p className='text-text-inverse/90 text-sm'>Total Games</p>
+				</div>
 
-					<div className='text-center'>
-						<div className='flex items-center justify-center mb-2'>
-							<CalendarIcon className='w-8 h-8 mr-2' />
-							<span className='text-3xl font-bold'>{gamesWithVideo}</span>
-						</div>
-						<p className='text-green-100 dark:text-blue-100'>With Video</p>
+				<div className='text-center'>
+					<div className='flex items-center justify-center mb-2'>
+						<CalendarIcon className='w-6 h-6 mr-2' />
+						<span className='text-2xl font-bold'>{gamesWithVideo}</span>
 					</div>
+					<p className='text-text-inverse/90 text-sm'>With Video</p>
+				</div>
 
-					<div className='text-center'>
-						<div className='flex items-center justify-center mb-2'>
-							<TrophyIcon className='w-8 h-8 mr-2' />
-							<span className='text-3xl font-bold'>{competitions}</span>
-						</div>
-						<p className='text-green-100 dark:text-blue-100'>Competitions</p>
+				<div className='text-center'>
+					<div className='flex items-center justify-center mb-2'>
+						<TrophyIcon className='w-6 h-6 mr-2' />
+						<span className='text-2xl font-bold'>{competitions}</span>
 					</div>
+					<p className='text-text-inverse/90 text-sm'>Competitions</p>
+				</div>
 
-					<div className='text-center'>
-						<div className='flex items-center justify-center mb-2'>
-							<UsersIcon className='w-8 h-8 mr-2' />
-							<span className='text-3xl font-bold'>{currentSeason}</span>
-						</div>
-						<p className='text-green-100 dark:text-blue-100'>Current Season</p>
+				<div className='text-center'>
+					<div className='flex items-center justify-center mb-2'>
+						<UsersIcon className='w-6 h-6 mr-2' />
+						<span className='text-2xl font-bold'>{currentSeason}</span>
 					</div>
+					<p className='text-text-inverse/90 text-sm'>Current Season</p>
 				</div>
 			</div>
-		</section>
+		</div>
 	);
 };
 

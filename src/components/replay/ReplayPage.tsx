@@ -103,19 +103,19 @@ const ReplayPage = () => {
 	if (error) return <EmptyState type='error' />;
 
 	return (
-		<div className='min-h-screen bg-gray-50 dark:bg-gray-900'>
+		<div className='min-h-screen bg-bg-secondary'>
 			{/* Header Section */}
-			<div className='bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700'>
+			<div className='bg-surface-primary shadow-sm border-b border-border-primary'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
 					<div className='text-center'>
-						<h1 className='text-3xl font-bold text-gray-900 dark:text-white mb-2'>Match Replays</h1>
-						<p className='text-lg text-gray-600 dark:text-gray-400'>Watch full game replays from our matches</p>
+						<h1 className='text-3xl font-bold text-text-primary mb-2'>Match Replays</h1>
+						<p className='text-lg text-text-secondary'>Watch full game replays from our matches</p>
 					</div>
 				</div>
 			</div>
 
 			{/* Search and Filters Section */}
-			<div className='bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10 shadow-sm'>
+			<div className='bg-surface-primary border-b border-border-primary sticky top-0 z-10 shadow-sm'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
 					{/* Search Bar */}
 					<div className='mb-8'>
@@ -129,7 +129,7 @@ const ReplayPage = () => {
 
 					{/* Competition Filters */}
 					<div className='mb-6'>
-						<h3 className='text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2'>
+						<h3 className='text-sm font-semibold text-text-primary mb-4 flex items-center gap-2'>
 							<svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
 								<title>Filter Icon</title>
 								<path
@@ -146,11 +146,11 @@ const ReplayPage = () => {
 
 					{/* Active Filters Summary */}
 					{(searchQuery || selectedCompetition !== 'all') && (
-						<div className='pt-6 border-t border-gray-200 dark:border-gray-700'>
+						<div className='pt-6 border-t border-border-primary'>
 							<div className='flex flex-wrap items-center gap-3 text-sm'>
-								<span className='text-gray-600 dark:text-gray-400 font-medium'>Active filters:</span>
+								<span className='text-text-secondary font-medium'>Active filters:</span>
 								{searchQuery && (
-									<span className='inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-xs font-medium border border-blue-200 dark:border-blue-700'>
+									<span className='inline-flex items-center gap-2 px-3 py-1.5 bg-interactive-secondary/10 text-interactive-secondary rounded-full text-xs font-medium border border-interactive-secondary/30'>
 										<svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
 											<title>Search Icon</title>
 											<path
@@ -163,7 +163,7 @@ const ReplayPage = () => {
 										&quot;{searchQuery}&quot;
 										<button
 											onClick={() => setSearchQuery('')}
-											className='ml-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors'
+											className='ml-1 text-interactive-secondary hover:text-interactive-secondary transition-colors'
 											type='button'
 										>
 											×
@@ -171,7 +171,7 @@ const ReplayPage = () => {
 									</span>
 								)}
 								{selectedCompetition !== 'all' && (
-									<span className='inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-xs font-medium border border-green-200 dark:border-green-700'>
+									<span className='inline-flex items-center gap-2 px-3 py-1.5 bg-interactive-primary/10 text-interactive-primary rounded-full text-xs font-medium border border-interactive-primary/30'>
 										<svg className='w-3 h-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
 											<title>Competition Icon</title>
 											<path
@@ -184,7 +184,7 @@ const ReplayPage = () => {
 										{selectedCompetition}
 										<button
 											onClick={() => setSelectedCompetition('all')}
-											className='ml-1 text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-200 transition-colors'
+											className='ml-1 text-interactive-primary hover:text-interactive-primary transition-colors'
 											type='button'
 										>
 											×
@@ -196,7 +196,7 @@ const ReplayPage = () => {
 										setSearchQuery('');
 										setSelectedCompetition('all');
 									}}
-									className='text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 underline text-xs font-medium transition-colors'
+									className='text-text-tertiary hover:text-text-primary underline text-xs font-medium transition-colors'
 									type='button'
 								>
 									Clear all filters
@@ -212,11 +212,11 @@ const ReplayPage = () => {
 				{/* Results Summary and Controls */}
 				<div className='mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
 					<div>
-						<p className='text-gray-600 dark:text-gray-400'>
+						<p className='text-text-secondary'>
 							Showing <span className='font-semibold'>{displayedGames.length}</span> of{' '}
 							<span className='font-semibold'>{filteredGames.length}</span> games
 							{searchQuery && (
-								<span className='text-gray-500 dark:text-gray-500'>
+								<span className='text-text-tertiary'>
 									{' '}
 									for &quot;<span className='font-medium'>{searchQuery}</span>&quot;
 								</span>
@@ -230,7 +230,7 @@ const ReplayPage = () => {
 						{/* Export Button */}
 						<button
 							onClick={() => setIsExportDialogOpen(true)}
-							className='flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors'
+							className='flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-primary bg-surface-primary border border-border-secondary rounded-md hover:bg-state-hover transition-colors'
 							type='button'
 						>
 							<DocumentArrowDownIcon className='w-4 h-4' />
@@ -268,7 +268,7 @@ const ReplayPage = () => {
 								<button
 									onClick={loadMore}
 									disabled={isLoadingMore}
-									className='px-6 py-3 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
+									className='px-6 py-3 text-sm font-medium text-text-inverse bg-interactive-primary border border-transparent rounded-md hover:bg-interactive-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-interactive-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
 									type='button'
 								>
 									{isLoadingMore ? 'Loading...' : 'Load More Games'}
@@ -279,7 +279,7 @@ const ReplayPage = () => {
 						{/* End of results */}
 						{!hasMore && displayedGames.length > 0 && (
 							<div className='mt-8 text-center'>
-								<p className='text-gray-500 dark:text-gray-400 text-sm'>You&apos;ve reached the end of the results</p>
+								<p className='text-text-tertiary text-sm'>You&apos;ve reached the end of the results</p>
 							</div>
 						)}
 					</>

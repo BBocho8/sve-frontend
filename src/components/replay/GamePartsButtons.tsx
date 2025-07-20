@@ -36,8 +36,8 @@ const GamePartsButtons = ({ availableParts, selectedPart, onSelectPart }: GamePa
 				type='button'
 				className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
 					part === selectedPart
-						? 'bg-green-600 text-white shadow-sm'
-						: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+						? 'bg-interactive-primary text-text-inverse shadow-sm'
+						: 'bg-surface-secondary text-text-primary hover:bg-state-hover'
 				}`}
 				onClick={() => onSelectPart(part)}
 			>

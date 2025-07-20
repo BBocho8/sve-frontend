@@ -24,12 +24,10 @@ const DetailedReplayComponent = () => {
 
 	if (!creds?.projectId || !creds?.dataset) {
 		return (
-			<div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center'>
+			<div className='min-h-screen bg-bg-secondary flex items-center justify-center'>
 				<div className='text-center'>
-					<div className='text-red-500 dark:text-red-400 text-lg font-medium mb-2'>Configuration Error</div>
-					<p className='text-gray-600 dark:text-gray-400'>
-						Missing project credentials. Please check your configuration.
-					</p>
+					<div className='text-interactive-danger text-lg font-medium mb-2'>Configuration Error</div>
+					<p className='text-text-secondary'>Missing project credentials. Please check your configuration.</p>
 				</div>
 			</div>
 		);
@@ -41,14 +39,14 @@ const DetailedReplayComponent = () => {
 
 	if (error) {
 		return (
-			<div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center'>
+			<div className='min-h-screen bg-bg-secondary flex items-center justify-center'>
 				<div className='text-center'>
-					<div className='text-red-500 dark:text-red-400 text-lg font-medium mb-2'>Error Loading Game</div>
-					<p className='text-gray-600 dark:text-gray-400 mb-4'>Failed to fetch game details. Please try again later.</p>
+					<div className='text-interactive-danger text-lg font-medium mb-2'>Error Loading Game</div>
+					<p className='text-text-secondary mb-4'>Failed to fetch game details. Please try again later.</p>
 					<button
 						type='button'
 						onClick={() => router.back()}
-						className='inline-flex items-center gap-2 px-4 py-2 bg-gray-600 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors'
+						className='inline-flex items-center gap-2 px-4 py-2 bg-surface-secondary text-text-inverse rounded-lg hover:bg-surface-secondary transition-colors'
 					>
 						<ArrowLeftIcon className='w-4 h-4' />
 						Go Back
@@ -60,14 +58,14 @@ const DetailedReplayComponent = () => {
 
 	if (!targetGame) {
 		return (
-			<div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center'>
+			<div className='min-h-screen bg-bg-secondary flex items-center justify-center'>
 				<div className='text-center'>
-					<div className='text-gray-500 dark:text-gray-400 text-lg font-medium mb-2'>Game Not Found</div>
-					<p className='text-gray-600 dark:text-gray-400 mb-4'>The requested game could not be found.</p>
+					<div className='text-text-tertiary text-lg font-medium mb-2'>Game Not Found</div>
+					<p className='text-text-secondary mb-4'>The requested game could not be found.</p>
 					<button
 						type='button'
 						onClick={() => router.push('/replay')}
-						className='inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors'
+						className='inline-flex items-center gap-2 px-4 py-2 bg-interactive-primary text-text-inverse rounded-lg hover:bg-interactive-primary transition-colors'
 					>
 						<ArrowLeftIcon className='w-4 h-4' />
 						Back to Replays
@@ -78,14 +76,14 @@ const DetailedReplayComponent = () => {
 	}
 
 	return (
-		<div className='min-h-screen bg-gray-50 dark:bg-gray-900'>
+		<div className='min-h-screen bg-bg-secondary'>
 			{/* Header with back button */}
-			<div className='bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700'>
+			<div className='bg-surface-primary shadow-sm border-b border-border-primary'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4'>
 					<button
 						type='button'
 						onClick={() => router.back()}
-						className='inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors'
+						className='inline-flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors'
 					>
 						<ArrowLeftIcon className='w-5 h-5' />
 						Back to Replays

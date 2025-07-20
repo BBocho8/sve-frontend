@@ -14,8 +14,52 @@ const config: Config = {
 				btn: '0 1px 3px rgba(0, 0, 0, 0.2)',
 			},
 			colors: {
+				// Keep existing primary green for backward compatibility
 				primaryGreen: '#15A34A',
-				// Dark mode color overrides
+
+				// New semantic color system
+				// Background colors
+				'bg-primary': 'var(--color-bg-primary)',
+				'bg-secondary': 'var(--color-bg-secondary)',
+				'bg-tertiary': 'var(--color-bg-tertiary)',
+				'bg-elevated': 'var(--color-bg-elevated)',
+
+				// Surface colors
+				'surface-primary': 'var(--color-surface-primary)',
+				'surface-secondary': 'var(--color-surface-secondary)',
+				'surface-tertiary': 'var(--color-surface-tertiary)',
+
+				// Text colors
+				'text-primary': 'var(--color-text-primary)',
+				'text-secondary': 'var(--color-text-secondary)',
+				'text-tertiary': 'var(--color-text-tertiary)',
+				'text-inverse': 'var(--color-text-inverse)',
+				'text-accent': 'var(--color-text-accent)',
+
+				// Border colors
+				'border-primary': 'var(--color-border-primary)',
+				'border-secondary': 'var(--color-border-secondary)',
+				'border-accent': 'var(--color-border-accent)',
+
+				// Interactive colors
+				'interactive-primary': 'var(--color-interactive-primary)',
+				'interactive-secondary': 'var(--color-interactive-secondary)',
+				'interactive-danger': 'var(--color-interactive-danger)',
+				'interactive-warning': 'var(--color-interactive-warning)',
+				'interactive-success': 'var(--color-interactive-success)',
+
+				// State colors
+				'state-hover': 'var(--color-state-hover)',
+				'state-active': 'var(--color-state-active)',
+				'state-disabled': 'var(--color-state-disabled)',
+				'state-focus': 'var(--color-state-focus)',
+
+				// Brand colors
+				'brand-primary': 'var(--color-brand-primary)',
+				'brand-secondary': 'var(--color-brand-secondary)',
+				'brand-accent': 'var(--color-brand-accent)',
+
+				// Legacy gray colors for backward compatibility
 				gray: {
 					50: '#f9fafb',
 					100: '#f3f4f6',
