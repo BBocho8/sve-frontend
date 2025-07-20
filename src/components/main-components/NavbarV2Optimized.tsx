@@ -12,6 +12,7 @@ import useSWR from 'swr';
 import { useOnClickOutside } from 'usehooks-ts';
 import logo from '../../../public/logo.png';
 import NavbarLoading from './NavbarLoading';
+import ThemeToggle from './ThemeToggle';
 
 const NavbarV2Optimized = () => {
 	const { data: session, status } = useSession();
@@ -62,7 +63,7 @@ const NavbarV2Optimized = () => {
 	useOnClickOutside(ref, handleClickOutside);
 
 	const navClass = classNames({
-		'absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white  md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between': true,
+		'absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-900 md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between': true,
 		'opacity-0 -translate-x-full': !isOpen,
 		'translate-x-0 opacity-100': isOpen,
 	});
@@ -91,7 +92,7 @@ const NavbarV2Optimized = () => {
 	}
 
 	return (
-		<nav ref={ref} className='relative bg-white shadow '>
+		<nav ref={ref} className='relative bg-white dark:bg-gray-900 shadow dark:shadow-gray-800'>
 			<div className='container px-6 py-3 mx-auto md:flex'>
 				<div className='flex items-center justify-between'>
 					<Box
@@ -117,10 +118,11 @@ const NavbarV2Optimized = () => {
 						</Typography>
 					</Box>
 
-					<div className='flex md:hidden'>
+					<div className='flex items-center gap-2 md:hidden'>
+						<ThemeToggle />
 						<button
 							type='button'
-							className='text-black  hover:text-primaryGreen  focus:outline-none focus:text-primaryGreen  cursor-pointer transition ease-in-out'
+							className='text-black dark:text-white hover:text-primaryGreen focus:outline-none focus:text-primaryGreen cursor-pointer transition ease-in-out'
 							aria-label='toggle menu'
 							onClick={() => setIsOpen(!isOpen)}
 							onKeyDown={e => {
@@ -159,18 +161,18 @@ const NavbarV2Optimized = () => {
 				</div>
 
 				<div className={navClass}>
-					<div className='flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0'>
+					<div className='flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0 md:items-center'>
 						<Link
 							onClick={() => setIsOpen(false)}
 							href='/'
-							className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'
+							className='px-2.5 py-1 text-gray-700 dark:text-gray-300 font-bold transition-colors duration-300 transform rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 md:mx-2'
 						>
 							Home
 						</Link>
 						<Link
 							onClick={() => setIsOpen(false)}
 							href='/replay'
-							className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'
+							className='px-2.5 py-1 text-gray-700 dark:text-gray-300 font-bold transition-colors duration-300 transform rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 md:mx-2'
 						>
 							Replay
 						</Link>
@@ -179,7 +181,7 @@ const NavbarV2Optimized = () => {
 								<Link
 									onClick={() => setIsOpen(false)}
 									href='/admin'
-									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2'
+									className='px-2.5 py-1 text-gray-700 dark:text-gray-300 font-bold transition-colors duration-300 transform rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 md:mx-2'
 								>
 									Admin
 								</Link>
@@ -192,12 +194,15 @@ const NavbarV2Optimized = () => {
 											redirect: true,
 										});
 									}}
-									className='px-2.5 py-1 text-gray-700 font-bold transition-colors duration-300 transform rounded-lg  hover:bg-gray-100  md:mx-2 cursor-pointer'
+									className='px-2.5 py-1 text-gray-700 dark:text-gray-300 font-bold transition-colors duration-300 transform rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 md:mx-2 cursor-pointer'
 								>
 									Sign out
 								</Typography>
 							</>
 						)}
+						<div className='hidden md:block md:ml-4'>
+							<ThemeToggle />
+						</div>
 					</div>
 					<div className='md:hidden'>
 						<div className='relative mt-2 md:mt-0'>
@@ -216,7 +221,7 @@ const NavbarV2Optimized = () => {
 
 							<input
 								type='text'
-								className='w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg   focus:border-primaryGreen  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primaryGreen'
+								className='w-full py-2 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 focus:border-primaryGreen focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primaryGreen'
 								onChange={handleSearchChange}
 								onFocus={handleSearchFocus}
 								value={query || ''}

@@ -12,12 +12,16 @@ const AdminNotAuth = () => {
 				alignItems: 'center',
 				justifyContent: 'center',
 				padding: 4,
+				minHeight: '100vh',
+				backgroundColor: 'var(--mui-palette-background-default)',
+				color: 'var(--mui-palette-text-primary)',
 			}}
 		>
 			<Typography
 				sx={{
 					fontSize: 28,
 					fontWeight: 'bold',
+					color: 'var(--mui-palette-text-primary)',
 				}}
 			>
 				Admin Page
@@ -26,7 +30,7 @@ const AdminNotAuth = () => {
 				sx={{
 					fontSize: 18,
 					fontWeight: 300,
-					color: 'gray',
+					color: 'var(--mui-palette-text-secondary)',
 				}}
 			>
 				You need to sign in to access this page.

@@ -1,6 +1,7 @@
 import NavbarV2Optimized from '@/components/main-components/NavbarV2Optimized';
 import SanityProvider from '@/components/providers/SanityProvider';
 import SessionProvider from '@/components/providers/SessionProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { SWRProvider } from '@/utils/swr/swr-provider';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -37,23 +38,25 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<SessionProvider>
-					<SWRProvider>
-						<SanityProvider
-							projectId={projectId}
-							dataset={dataset}
-							token={token}
-							supabaseUrl={supabaseUrl}
-							supabaseServiceRoleKey={supabaseServiceRoleKey}
-						>
-							<main>
-								<NavbarV2Optimized />
-								{children}
-								<Footer />
-							</main>
-						</SanityProvider>
-					</SWRProvider>
-				</SessionProvider>
+				<ThemeProvider>
+					<SessionProvider>
+						<SWRProvider>
+							<SanityProvider
+								projectId={projectId}
+								dataset={dataset}
+								token={token}
+								supabaseUrl={supabaseUrl}
+								supabaseServiceRoleKey={supabaseServiceRoleKey}
+							>
+								<main>
+									<NavbarV2Optimized />
+									{children}
+									<Footer />
+								</main>
+							</SanityProvider>
+						</SWRProvider>
+					</SessionProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

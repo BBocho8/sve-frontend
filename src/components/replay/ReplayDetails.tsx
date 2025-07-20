@@ -60,14 +60,14 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 			</div>
 
 			{/* Video Section */}
-			<div className='bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden'>
+			<div className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden'>
 				{isVideoAvailable ? (
 					<>
 						{/* Video Player Controls */}
-						<div className='p-6 border-b border-gray-200'>
+						<div className='p-6 border-b border-gray-200 dark:border-gray-700'>
 							<div className='flex items-center gap-2 mb-4'>
-								<PlayIcon className='w-5 h-5 text-green-600' />
-								<h3 className='text-lg font-semibold text-gray-900'>Watch Replay</h3>
+								<PlayIcon className='w-5 h-5 text-green-600 dark:text-green-400' />
+								<h3 className='text-lg font-semibold text-gray-900 dark:text-white'>Watch Replay</h3>
 							</div>
 							<GamePartsButtons availableParts={availableParts} selectedPart={gamePart} onSelectPart={setGamePart} />
 						</div>
@@ -86,20 +86,22 @@ const ReplayDetails = ({ game }: ReplayDetailsProps) => {
 							</div>
 						) : (
 							<div className='p-12 text-center'>
-								<div className='text-gray-400 mb-4'>
+								<div className='text-gray-400 dark:text-gray-500 mb-4'>
 									<PlayIcon className='w-16 h-16 mx-auto' />
 								</div>
-								<p className='text-gray-600'>Select a game part to start watching</p>
+								<p className='text-gray-600 dark:text-gray-400'>Select a game part to start watching</p>
 							</div>
 						)}
 					</>
 				) : (
 					<div className='p-12 text-center'>
-						<div className='text-yellow-500 mb-4'>
+						<div className='text-yellow-500 dark:text-yellow-400 mb-4'>
 							<ExclamationTriangleIcon className='w-16 h-16 mx-auto' />
 						</div>
-						<h3 className='text-lg font-medium text-gray-900 mb-2'>Video Not Available</h3>
-						<p className='text-gray-600'>Game video is not yet available. Please check back later.</p>
+						<h3 className='text-lg font-medium text-gray-900 dark:text-white mb-2'>Video Not Available</h3>
+						<p className='text-gray-600 dark:text-gray-400'>
+							Game video is not yet available. Please check back later.
+						</p>
 					</div>
 				)}
 			</div>

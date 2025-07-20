@@ -29,13 +29,13 @@ const StatsSection = () => {
 	// Show loading state if credentials are not ready or data is loading
 	if (!shouldFetch || isLoading) {
 		return (
-			<section className='py-16 bg-green-600 text-white'>
+			<section className='py-16 bg-gradient-to-br from-green-600 to-green-700 dark:from-blue-600 dark:to-blue-700 text-white'>
 				<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 					<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
 						{[1, 2, 3, 4].map(i => (
 							<div key={i} className='text-center animate-pulse'>
-								<div className='h-8 bg-green-500 rounded mb-2' />
-								<div className='h-4 bg-green-500 rounded w-3/4 mx-auto' />
+								<div className='h-8 bg-green-500 dark:bg-blue-500 rounded mb-2' />
+								<div className='h-4 bg-green-500 dark:bg-blue-500 rounded w-3/4 mx-auto' />
 							</div>
 						))}
 					</div>
@@ -45,7 +45,7 @@ const StatsSection = () => {
 	}
 
 	return (
-		<section className='py-16 bg-green-600 text-white'>
+		<section className='py-16 bg-gradient-to-br from-green-600 to-green-700 dark:from-blue-600 dark:to-blue-700 text-white'>
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
 					<div className='text-center'>
@@ -53,7 +53,7 @@ const StatsSection = () => {
 							<PlayIcon className='w-8 h-8 mr-2' />
 							<span className='text-3xl font-bold'>{totalGames}</span>
 						</div>
-						<p className='text-green-100'>Total Games</p>
+						<p className='text-green-100 dark:text-blue-100'>Total Games</p>
 					</div>
 
 					<div className='text-center'>
@@ -61,7 +61,7 @@ const StatsSection = () => {
 							<CalendarIcon className='w-8 h-8 mr-2' />
 							<span className='text-3xl font-bold'>{gamesWithVideo}</span>
 						</div>
-						<p className='text-green-100'>With Video</p>
+						<p className='text-green-100 dark:text-blue-100'>With Video</p>
 					</div>
 
 					<div className='text-center'>
@@ -69,7 +69,7 @@ const StatsSection = () => {
 							<TrophyIcon className='w-8 h-8 mr-2' />
 							<span className='text-3xl font-bold'>{competitions}</span>
 						</div>
-						<p className='text-green-100'>Competitions</p>
+						<p className='text-green-100 dark:text-blue-100'>Competitions</p>
 					</div>
 
 					<div className='text-center'>
@@ -77,7 +77,7 @@ const StatsSection = () => {
 							<UsersIcon className='w-8 h-8 mr-2' />
 							<span className='text-3xl font-bold'>{currentSeason}</span>
 						</div>
-						<p className='text-green-100'>Current Season</p>
+						<p className='text-green-100 dark:text-blue-100'>Current Season</p>
 					</div>
 				</div>
 			</div>
