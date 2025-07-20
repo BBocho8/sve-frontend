@@ -38,12 +38,12 @@ const LatestGames = () => {
 				{[1, 2, 3].map(i => (
 					<div
 						key={i}
-						className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden animate-pulse'
+						className='bg-surface-primary rounded-lg shadow-sm border border-border-primary overflow-hidden animate-pulse'
 					>
-						<div className='aspect-video bg-gray-200 dark:bg-gray-700' />
+						<div className='aspect-video bg-surface-tertiary' />
 						<div className='p-4'>
-							<div className='h-4 bg-gray-200 dark:bg-gray-700 rounded mb-2' />
-							<div className='h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3' />
+							<div className='h-4 bg-surface-tertiary rounded mb-2' />
+							<div className='h-3 bg-surface-tertiary rounded w-2/3' />
 						</div>
 					</div>
 				))}
@@ -54,10 +54,10 @@ const LatestGames = () => {
 	if (error) {
 		return (
 			<div className='text-center py-8'>
-				<p className='text-gray-600 dark:text-gray-400 mb-4'>Unable to load recent games</p>
+				<p className='text-text-secondary mb-4'>Unable to load recent games</p>
 				<Link
 					href='/replay'
-					className='inline-flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors'
+					className='inline-flex items-center gap-2 bg-interactive-primary text-text-inverse px-6 py-2 rounded-lg font-semibold hover:bg-interactive-primary transition-colors'
 				>
 					Browse All Games
 					<ArrowRightIcon className='w-4 h-4' />
@@ -69,10 +69,10 @@ const LatestGames = () => {
 	if (!latestGames.length) {
 		return (
 			<div className='text-center py-8'>
-				<p className='text-gray-600 dark:text-gray-400 mb-4'>No recent games available</p>
+				<p className='text-text-secondary mb-4'>No recent games available</p>
 				<Link
 					href='/replay'
-					className='inline-flex items-center gap-2 bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors'
+					className='inline-flex items-center gap-2 bg-interactive-primary text-text-inverse px-6 py-2 rounded-lg font-semibold hover:bg-interactive-primary transition-colors'
 				>
 					Browse All Games
 					<ArrowRightIcon className='w-4 h-4' />
@@ -91,9 +91,9 @@ const LatestGames = () => {
 					<Link
 						key={game._id}
 						href={`/replay/${game._id}`}
-						className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow group'
+						className='bg-surface-primary rounded-lg shadow-sm border border-border-primary overflow-hidden hover:shadow-md transition-shadow group'
 					>
-						<div className='relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden'>
+						<div className='relative aspect-video bg-surface-tertiary overflow-hidden'>
 							{hasVideo ? (
 								<Image
 									src={videoThumbnail}
@@ -104,23 +104,23 @@ const LatestGames = () => {
 								/>
 							) : (
 								<div className='w-full h-full flex items-center justify-center'>
-									<PlayIcon className='w-12 h-12 text-gray-400 dark:text-gray-500' />
+									<PlayIcon className='w-12 h-12 text-text-tertiary' />
 								</div>
 							)}
 							{hasVideo && (
 								<div className='absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200'>
-									<div className='bg-white dark:bg-gray-800 rounded-full p-2'>
-										<PlayIcon className='w-6 h-6 text-green-600 dark:text-green-400' />
+									<div className='bg-surface-primary rounded-full p-2'>
+										<PlayIcon className='w-6 h-6 text-interactive-primary' />
 									</div>
 								</div>
 							)}
 						</div>
 						<div className='p-4'>
-							<h3 className='font-semibold text-gray-900 dark:text-white mb-1 line-clamp-1'>
+							<h3 className='font-semibold text-text-primary mb-1 line-clamp-1'>
 								{game.homeTeam} vs {game.awayTeam}
 							</h3>
-							<p className='text-sm text-gray-600 dark:text-gray-400 mb-2'>{game.competition}</p>
-							<p className='text-xs text-gray-500 dark:text-gray-500'>{getFormattedDate(game.date as string)}</p>
+							<p className='text-sm text-text-secondary mb-2'>{game.competition}</p>
+							<p className='text-xs text-text-tertiary'>{getFormattedDate(game.date as string)}</p>
 						</div>
 					</Link>
 				);

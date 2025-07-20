@@ -4,7 +4,7 @@ import logo from '../../../public/logo.png';
 
 const NavbarLoading = () => {
 	return (
-		<nav className='relative bg-white shadow'>
+		<nav className='relative bg-surface-primary shadow border-b border-border-primary'>
 			<div className='container px-6 py-3 mx-auto md:flex'>
 				<div className='flex items-center justify-between'>
 					<Box

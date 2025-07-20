@@ -2,11 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fallback CSS variables in case JavaScript doesn't load */
+:root {
+	/* Light mode defaults */
+	--color-bg-primary: #FFFFFF;
+	--color-bg-secondary: #F8FAFC;
+	--color-bg-tertiary: #F1F5F9;
+	--color-bg-elevated: #FFFFFF;
+	--color-surface-primary: #FFFFFF;
+	--color-surface-secondary: #F8FAFC;
+	--color-surface-tertiary: #F1F5F9;
+	--color-text-primary: #0F172A;
+	--color-text-secondary: #475569;
+	--color-text-tertiary: #64748B;
+	--color-text-inverse: #FFFFFF;
+	--color-text-accent: #3B82F6;
+	--color-border-primary: #E2E8F0;
+	--color-border-secondary: #CBD5E1;
+	--color-border-accent: #3B82F6;
+	--color-interactive-primary: #3B82F6;
+	--color-interactive-secondary: #15A34A;
+	--color-interactive-danger: #EF4444;
+	--color-interactive-warning: #F59E0B;
+	--color-interactive-success: #10B981;
+	--color-state-hover: #F1F5F9;
+	--color-state-active: #E2E8F0;
+	--color-state-disabled: #F1F5F9;
+	--color-state-focus: #3B82F6;
+}
+
+/* Dark mode overrides */
+.dark {
+	--color-bg-primary: #0F172A;
+	--color-bg-secondary: #1E293B;
+	--color-bg-tertiary: #334155;
+	--color-bg-elevated: #1E293B;
+	--color-surface-primary: #1E293B;
+	--color-surface-secondary: #334155;
+	--color-surface-tertiary: #475569;
+	--color-text-primary: #F8FAFC;
+	--color-text-secondary: #CBD5E1;
+	--color-text-tertiary: #94A3B8;
+	--color-text-inverse: #0F172A;
+	--color-text-accent: #60A5FA;
+	--color-border-primary: #475569;
+	--color-border-secondary: #64748B;
+	--color-border-accent: #60A5FA;
+	--color-interactive-primary: #60A5FA;
+	--color-interactive-secondary: #22C55E;
+	--color-interactive-danger: #F87171;
+	--color-interactive-warning: #FBBF24;
+	--color-interactive-success: #34D399;
+	--color-state-hover: #334155;
+	--color-state-active: #475569;
+	--color-state-disabled: #475569;
+	--color-state-focus: #60A5FA;
+}
+
 /* ----------- PROJECT CLASSES ----------- */
 
 @layer base {
 	body {
-		@apply nav:text-body font-sans min-h-screen bg-white;
+		@apply nav:text-body font-sans min-h-screen bg-bg-primary text-text-primary;
 	}
 	h1,
 	h2,
@@ -32,11 +89,11 @@
 		@apply p-2 sm:p-4;
 	}
 	th {
-		@apply bg-black bg-opacity-80 text-white;
+		@apply bg-text-inverse text-text-primary;
 	}
 
 	nav {
-		@apply bg-white;
+		@apply bg-surface-primary;
 	}
 }
 
@@ -53,15 +110,15 @@
 
 	/*------ BTN ------*/
 	.btn {
-		@apply uppercase bg-primaryGreen text-white  transition duration-300 ease-linear font-bold inline-block tracking-header px-btnX py-btnY text-btn cursor-pointer shadow-btn rounded-md;
+		@apply uppercase bg-interactive-primary text-text-inverse transition duration-300 ease-linear font-bold inline-block tracking-header px-btnX py-btnY text-btn cursor-pointer shadow-btn rounded-md;
 	}
 	.btn:hover {
-		@apply text-white bg-opacity-75 border rounded-md border-primaryGreen;
+		@apply text-text-inverse bg-opacity-75 border rounded-md border-interactive-primary;
 	}
 
 	/* --------- HERO HEADER --------- */
 	.hero {
-		@apply w-screen h-nav flex  justify-center items-center text-center bg-cover bg-center bg-no-repeat  bg-scroll bg-[url("./assets/images/homeheadertest.jpg")];
+		@apply w-screen h-nav flex justify-center items-center text-center bg-cover bg-center bg-no-repeat bg-scroll bg-[url("./assets/images/homeheadertest.jpg")];
 	}
 
 	.child {
@@ -84,10 +141,10 @@
 		@apply text-left;
 	}
 	.promotion td {
-		@apply text-black bg-lime-400;
+		@apply text-text-inverse bg-interactive-success;
 	}
 	.relegation td {
-		@apply text-black bg-red-400;
+		@apply text-text-inverse bg-interactive-danger;
 	}
 
 	/* --------- NAVBAR --------- */
@@ -99,10 +156,10 @@
 		@apply flex justify-between items-center p-4 nav:p-0;
 	}
 	.nav-toggle {
-		@apply text-nav text-black bg-transparent border-transparent transition delay-100 duration-200 ease-in-out nav:hidden;
+		@apply text-nav text-text-primary bg-transparent border-transparent transition delay-100 duration-200 ease-in-out nav:hidden;
 	}
 	.nav-toggle:hover {
-		@apply text-primaryGreen rotate-90;
+		@apply text-interactive-primary rotate-90;
 	}
 	.logo {
 		@apply h-10;
@@ -112,7 +169,7 @@
 		@apply flex gap-2;
 	}
 	.links a {
-		@apply text-gray-700 text-linksNav capitalize tracking-wider block px-4 py-2 transition delay-150 duration-300 ease-in-out nav:p-0;
+		@apply text-text-secondary text-linksNav capitalize tracking-wider block px-4 py-2 transition delay-150 duration-300 ease-in-out nav:p-0;
 	}
 
 	.links-container {
@@ -123,7 +180,7 @@
 		@apply py-2 px-2 transition delay-150 duration-300 ease-in-out tracking-widest;
 	}
 	.nav-link:hover {
-		@apply text-orange-500;
+		@apply text-interactive-accent;
 	}
 
 	.social-icons {
@@ -131,23 +188,24 @@
 	}
 
 	.social-icons a {
-		@apply text-black transition delay-150 duration-300 ease-in-out;
+		@apply text-text-primary transition delay-150 duration-300 ease-in-out;
 	}
 
 	.social-icons a:hover {
 		@apply opacity-80;
 	}
 }
+
 /* target the active bullet */
 span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-	background-color: #15a34a;
+	background-color: var(--color-interactive-primary);
 	opacity: 1;
 	transform: scale(1.25);
 }
 
 /* target all bullets */
 .swiper-pagination-bullet {
-	background-color: grey;
+	background-color: var(--color-text-tertiary);
 	opacity: 0.8;
 }
 
@@ -164,8 +222,8 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 .loading-spinner {
 	width: 100px;
 	height: 100px;
-	border: 10px solid #f3f3f3; /* Light grey */
-	border-top: 10px solid #383636; /* Black */
+	border: 10px solid var(--color-bg-tertiary);
+	border-top: 10px solid var(--color-text-primary);
 	border-radius: 50%;
 	animation: spinner 1.5s linear infinite;
 }
@@ -179,4 +237,15 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 .no-scrollbar {
 	-ms-overflow-style: none;  /* IE and Edge */
 	scrollbar-width: none;  /* Firefox */
+}
+
+/* Dark mode specific overrides for better contrast */
+.dark {
+	/* Ensure proper contrast for dark mode */
+	--tw-shadow-color: var(--color-shadow-dark);
+}
+
+/* Light mode specific overrides */
+.light {
+	--tw-shadow-color: var(--color-shadow-light);
 }

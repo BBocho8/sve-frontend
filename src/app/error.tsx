@@ -15,13 +15,13 @@ export default function Error({
 	}, [error]);
 
 	return (
-		<div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center'>
+		<div className='min-h-screen bg-bg-secondary flex items-center justify-center'>
 			<div className='text-center'>
-				<h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-4'>Something went wrong!</h2>
+				<h2 className='text-2xl font-bold text-text-primary mb-4'>Something went wrong!</h2>
 				<button
 					type='button'
 					onClick={() => reset()}
-					className='px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors'
+					className='px-6 py-3 bg-interactive-primary text-text-inverse rounded-lg hover:bg-interactive-primary transition-colors'
 				>
 					Try again
 				</button>
