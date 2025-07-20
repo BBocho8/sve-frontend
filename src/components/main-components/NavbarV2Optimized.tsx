@@ -63,7 +63,7 @@ const NavbarV2Optimized = () => {
 	useOnClickOutside(ref, handleClickOutside);
 
 	const navClass = classNames({
-		'absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between': true,
+		'absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out md:mt-0 md:p-0 md:top-0 md:relative md:opacity-100 md:translate-x-0 md:flex md:items-center md:justify-between bg-surface-primary shadow-lg border-b border-border-primary md:bg-transparent md:shadow-none md:border-none': true,
 		'opacity-0 -translate-x-full': !isOpen,
 		'translate-x-0 opacity-100': isOpen,
 	});
